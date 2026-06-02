@@ -21,7 +21,7 @@ The focus is the transition from **video generation** to **interactive / navigab
 | `Closed` | No public code, weights, or dataset have been verified |
 | `Frontier` | A recent preprint or newly released project as of 2026-05-30 |
 
-## 1. Recommended Starting Points
+## 1.  Initial Points
 
 | Priority | Resource | Type | Why read it |
 | --- | --- | --- | --- |
@@ -33,9 +33,9 @@ The focus is the transition from **video generation** to **interactive / navigab
 | A | [Marble](https://www.worldlabs.ai/blog/marble-world-model) | Official blog / `Closed` | Contrast with Genie 3 and understand the explorable, persistent 3D world direction. |
 | B | [Awesome Video World Models](https://github.com/hit-perfect/Awesome-Video-World-Models) | Awesome list | Additional recent projects, surveys, datasets, and benchmarks. |
 
-## 2. Two-Week Core Reading Path
+## 2. Two-Week Core Study
 
-Try to answer: **How does a model control rollouts, maintain 3D consistency, handle memory, and evaluate failure modes?**
+**How does a model control rollouts, maintain 3D consistency, handle memory, and evaluate failure modes?**
 
 | Day | Core reading | Questions to answer |
 | --- | --- | --- |
@@ -50,11 +50,6 @@ Try to answer: **How does a model control rollouts, maintain 3D consistency, han
 | 9 | [DDPM](https://arxiv.org/abs/2006.11239), [LDM](https://arxiv.org/abs/2112.10752), [DiT](https://arxiv.org/abs/2212.09748), [SVD](https://arxiv.org/abs/2311.15127), [Wan](https://arxiv.org/abs/2503.20314), [CausVid](https://arxiv.org/abs/2412.07772), [Causal Forcing](https://arxiv.org/abs/2602.02214) | What is the relationship between diffusion, latent video models, causal generation, and real-time rollouts? |
 | 10 | [minWM](https://arxiv.org/abs/2605.30263) and the Day 8 benchmarks | Discuss the project proposal: should we build a benchmark, a dataset, or a lightweight 3D constraint for an open model? |
 
-### Suggested Day 10 Project Directions
-
-1. **3D consistency evaluation**: use fixed camera actions and measure depth consistency, revisit consistency, tracking, reconstruction stability, and action alignment.
-2. **Explicit 3D prior**: add depth, flow, camera pose, point tracks, or 3D feature memory to an executable video model.
-3. **Mini benchmark**: use 50-100 scenes and fixed action sequences to compare spatial memory failure modes in open interactive world models.
 
 ## 3. Overview: Representative Systems
 
@@ -75,7 +70,7 @@ Try to answer: **How does a model control rollouts, maintain 3D consistency, han
 
 ## 4. Strong 3D / Spatially Consistent World Models
 
-This section is the most relevant to the project. Focus on **explicit 3D state, camera control, geometry memory, scene revisiting, and long-horizon consistency**.
+Explicit 3D state, camera control, geometry memory, scene revisiting, and long-horizon consistency**.
 
 | Priority | Year / Status | Paper or official page | Availability | Why read it |
 | --- | --- | --- | --- | --- |
@@ -109,7 +104,7 @@ This section is the most relevant to the project. Focus on **explicit 3D state, 
 
 ## 6. Memory in World Models
 
-Do not read this section only as "generating longer videos." The key project question is whether **layout, object identity, dynamic state, and motion continuity** survive when an agent leaves an area and returns later.
+Does **layout, object identity, dynamic state, and motion continuity** survive when an agent leaves an area and returns later?
 
 | Priority | Year / Status | Paper or official page | Availability | Why read it |
 | --- | --- | --- | --- | --- |
@@ -127,7 +122,6 @@ Do not read this section only as "generating longer videos." The key project que
 
 ## 7. Multiplayer / Multi-Agent World Models
 
-This direction is still new. The list deliberately stays short rather than treating ordinary multi-view generation papers as multi-agent world models.
 
 | Priority | Year / Status | Paper or official page | Availability | Why read it |
 | --- | --- | --- | --- | --- |
@@ -170,9 +164,7 @@ This direction is still new. The list deliberately stays short rather than treat
 | B | ScanNet | `Application required` | [Official site](http://www.scan-net.org/) | Indoor RGB-D, poses, semantic labels, and 3D reconstruction. |
 | B | Matterport3D | `Application required` | [Official page](https://niessner.github.io/Matterport/) | Indoor panoramas, navigation, and 3D scene understanding. |
 
-### 8.3 Optional: Driving
-
-Driving world models are not the main focus of this project, but their engineering experience with cameras, trajectories, BEV representations, and 3D consistency is useful.
+### 8.3 Driving
 
 | Dataset | Official entry point | Use |
 | --- | --- | --- |
@@ -195,7 +187,7 @@ Driving world models are not the main focus of this project, but their engineeri
 
 ## 10. Evaluation / Benchmarks
 
-For a 3D consistency project, separate evaluation into:
+In 3D consistency, we separate evaluation into:
 
 1. **Visual quality**: visual quality, video stability, and naturalness.
 2. **Control alignment**: whether WASD controls, camera trajectories, actions, and visual feedback agree.
@@ -220,7 +212,6 @@ For a 3D consistency project, separate evaluation into:
 
 ## 11. Essential Background
 
-The background section should not overshadow the project. Understand the interfaces and key ideas first, then read more deeply as needed for implementation.
 
 ### 11.1 Diffusion and Video Foundation Models
 
@@ -257,7 +248,7 @@ The background section should not overshadow the project. Understand the interfa
 
 ## 12. Frontier Watchlist
 
-The following items are worth revisiting monthly as of **2026-05-31**. They are recent and should not be mixed with mature representative work or assumed to have stable code.
+The following items are worth revisiting monthly as of **2026-05-31**. 
 
 | Date | Item | Status | Why track it |
 | --- | --- | --- | --- |
