@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: plausible
   locale: en-US
-  baseUrl: lhurr.github.io
+  baseUrl: lhurr.github.io/ml-notes
   ignorePatterns:
     - private
     - templates
