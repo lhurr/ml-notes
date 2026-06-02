@@ -5,7 +5,7 @@ A **video world model** refers to:
 
 > A video-based generative model that can synthesize controllable, navigable, persistent, or interactive environments, ideally supporting action-conditioned rollout, camera navigation, spatial memory, physical consistency, and 3D consistency.
 
-The focus is the transition from **video generation** to **interactive / navigable / persistent world simulation**. Traditional model-based RL, JEPA, and autonomous driving world models are not the main focus. A small number of background readings are retained at the end.
+The focus is the transition from **video generation** to **interactive / navigable / persistent world simulation**.
 
 ### Labels
 
