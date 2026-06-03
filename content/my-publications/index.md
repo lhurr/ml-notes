@@ -1,10 +1,9 @@
 ---
 title: Publications
-description: Some research I have worked on previously
 ---
 
-A collection of papers and research I've worked on.
+A collection of papers and research I have worked on.
 
 | Paper | Venue | Year |
 |-------|-------|------|
-| [[Maritime AI Paper\|Maritime Context Text Identification for Connecting AI Models]] | — | 2024 |
+| [[Maritime AI Paper\|Maritime Context Text Identification for Connecting AI Models]] | IEEE Conference on AI | 2024 |

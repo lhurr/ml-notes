@@ -8,7 +8,9 @@ tags:
 
 ## Motivation and reflection
 
-I worked on this research paper in 2024 during my stint at the **Institute of High Performance Computing (IHPC), A\*STAR Singapore**. The goal was to develop a model understand complex queries in the maritime domain. This model was used as part of a larger framework that helps users navigate the maritime AI/data repository that IHPC developed. To that end, I experimented with **lightweight language models** coupled with **cost-sensitive learning** to address the challenge of limited domain-specific training data. This was my first time getting my hands dirty into AI research, model fine-tuning and manuscript writing
+I worked on this research paper in 2024 during my stint at the **Institute of High Performance Computing (IHPC), A\*STAR Singapore**. The goal was to develop a model understand complex queries in the maritime domain. This model was used as part of a larger framework that helps users navigate the maritime AI/data repository that IHPC developed. To that end, I experimented with **lightweight language models** coupled with **cost-sensitive learning** to address the challenge of limited domain-specific training data. This was my first time getting my hands dirty into AI research, model fine-tuning and manuscript writing. 
+
+We submitted this paper to several conferences, and eventually got accepted to the IEEE Conference on AI in 2024. Currently as of Jun. 2026, it has 10 citations!
 
 ## Summary
 
