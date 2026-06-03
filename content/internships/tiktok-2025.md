@@ -8,10 +8,11 @@ tags: [internship, tiktok, ml-engineering, data-engineering]
 **Period:** Summer 2025
 
 ## What I Worked On
+I interned at TikTok T&S algorithms team during my first summer
 
 ### Large Scale Feature Selection
 
-To scale down 2,000+ video features for quick dataset rollout, I applied [mRMR](https://github.com/smazzanti/mrmr) (minimum Redundancy Maximum Relevance), a greedy feature selection algorithm that uses **mutual information** as the scoring mechanism for both relevance and redundancy.
+To scale down 2,000+ video features for rapid dataset rollout, I applied [mRMR](https://github.com/smazzanti/mrmr) (minimum Redundancy Maximum Relevance), a greedy feature selection algorithm that uses **mutual information** as the scoring mechanism for both relevance and redundancy.
 
 The objective is to select a subset $S$ of $k$ features that jointly maximizes relevance to the target while minimizing pairwise redundancy:
 
@@ -36,7 +37,7 @@ I wrote code to crawl model metadata to identify stale lineages: models whose ut
 
 The core challenge was compatibility: a model deployed on multiple GPU types could only be safely migrated to one type completely it had already been used with. For example, if model A used both L20, V100 and H100, etc and we wanted to extract out H100s, we could swap it for L20s and V100s without any negative effects.
 
-To operationalize this, I built a **GPU compute conversion graph** where each node is a GPU type and each edge connects two types that a model has been co-deployed on. Then, finding valid substitutes for a target GPU then becomes a graph traversal problem, a DFS from the target node surfaces all reachable GPU types that are transitively compatible, giving the swap logic a candidate pool to work from automatically.
+To operationalize this, I built a **GPU compute conversion graph** where each node is a GPU type and each edge connects two types that a model has been co-deployed on. Then, finding valid substitutes for a target GPU then becomes a graph traversal problem, a DFS from the target node surfaces all reachable GPU types that are transitively compatible, giving the swap logic a candidate pool to work from automatically. I also plugged in a greedy logic where we try to minimize the 'excess' GPU compute everytime we swap. (e.g a model wont actually need a H100, when it could be served with a much less powerful GPU)
 
 Apart from this, I also wrote code to estimate the GPU card to allocate different teams based on several metrics, such as utilization, estimated scale up, model time out rates, etc.
 
@@ -54,5 +55,5 @@ I traced the pipeline end-to-end, examining feature generation jobs, aggregation
 
 ### Multi-Agent Livestream Analysis
 
-Piloted and evaluated a multi-agent framework for processing TikTok livestreams, where multiple specialized agents collaborate to analyze a stream. The agents included multimodal agents, embedding agents, ASR agents, and other specialized agents to pass video frames, transcribed audio, and video text signals to identify if a video was violative. I also developed heuristics to identify if a video was selling fraudulent goods.
+I worked in a team to pilot and evaluate a multi-agent framework for processing TikTok livestreams, where multiple specialized agents collaborate to analyze a stream. The agents included multimodal agents, embedding agents, ASR agents, and other specialized agents to pass video frames, transcribed audio, and video text signals to identify if a video was violative. I also developed heuristics to identify if a video was selling fraudulent goods.
 

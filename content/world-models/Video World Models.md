@@ -11,7 +11,7 @@ The focus is the transition from **video generation** to **interactive / navigab
 
 | Label | Meaning |
 | --- | --- |
-| `A` | Recommended first; directly relevant to the project |
+| `A` | Recommended first |
 | `B` | Optional reading for a broader understanding |
 | `C` | Background knowledge or an adjacent direction |
 | `Code` | The official repository provides implementation code |
@@ -25,7 +25,7 @@ The focus is the transition from **video generation** to **interactive / navigab
 
 | Priority | Resource | Type | Why read it |
 | --- | --- | --- | --- |
-| A | [Awesome From Video Generation to World Model](https://github.com/ziqihuangg/Awesome-From-Video-Generation-to-World-Model/) | Awesome list | Its taxonomy is closest to this project: from video foundation models to faithfulness, interaction, planning, datasets, and evaluation. |
+| A | [Awesome From Video Generation to World Model](https://github.com/ziqihuangg/Awesome-From-Video-Generation-to-World-Model/) | Awesome list | Video foundation models to faithfulness, interaction, planning, datasets, and evaluation. |
 | A | [CVPR 2025 Tutorial: From Video Generation to World Model](https://world-model-tutorial.github.io/) | Tutorial | To build a map of the field. |
 | A | [Simulating the Visual World with Artificial Intelligence: A Roadmap](https://arxiv.org/abs/2511.08585) | Roadmap / Survey | A systematic overview of the capabilities, data, and evaluation problems for interactive visual world simulators. |
 | A | [Genie: Generative Interactive Environments](https://arxiv.org/abs/2402.15391) | Paper | An important starting point for video-based interactive world models. |
@@ -48,7 +48,7 @@ The focus is the transition from **video generation** to **interactive / navigab
 | 7 | [MultiWorld](https://arxiv.org/abs/2604.18564), [Solaris](https://arxiv.org/abs/2602.22208), [Gamma-World](https://arxiv.org/abs/2605.28816) | What new constraints arise from multiple agents, multiple views, and a shared world state? |
 | 8 | [WorldMark](https://arxiv.org/abs/2604.21686), [WBench](https://arxiv.org/abs/2605.25874), [MIND](https://arxiv.org/abs/2602.08025), [WorldScore](https://arxiv.org/abs/2504.00983) | How should visual quality, control alignment, spatial memory, and physical consistency be evaluated separately? |
 | 9 | [DDPM](https://arxiv.org/abs/2006.11239), [LDM](https://arxiv.org/abs/2112.10752), [DiT](https://arxiv.org/abs/2212.09748), [SVD](https://arxiv.org/abs/2311.15127), [Wan](https://arxiv.org/abs/2503.20314), [CausVid](https://arxiv.org/abs/2412.07772), [Causal Forcing](https://arxiv.org/abs/2602.02214) | What is the relationship between diffusion, latent video models, causal generation, and real-time rollouts? |
-| 10 | [minWM](https://arxiv.org/abs/2605.30263) and the Day 8 benchmarks | Discuss the project proposal: should we build a benchmark, a dataset, or a lightweight 3D constraint for an open model? |
+| 10 | [minWM](https://arxiv.org/abs/2605.30263) and the Day 8 benchmarks | Build a benchmark, a dataset, or a lightweight 3D constraint for an open model? |
 
 
 ## 3. Overview: Representative Systems
@@ -179,7 +179,7 @@ Does **layout, object identity, dynamic state, and motion continuity** survive w
 | --- | --- | --- | --- | --- |
 | A | 2025 | [Simulating the Visual World with Artificial Intelligence: A Roadmap](https://arxiv.org/abs/2511.08585) | Roadmap | Main survey: a systematic map of visual world simulation. |
 | A | 2025 | [3D and 4D World Modeling: A Survey](https://arxiv.org/abs/2509.07996) | Survey | Background on 3D / 4D world representations. |
-| B | 2026 | [World Models for Robot Learning: A Survey](https://arxiv.org/abs/2605.00080) | Survey | Understand the role of world models in robot learning without making it the main project direction. |
+| B | 2026 | [World Models for Robot Learning: A Survey](https://arxiv.org/abs/2605.00080) | Survey | Understand the role of world models in robot learning. |
 | A | 2026 | [Video Generation Models as World Models: A New and Efficient Paradigm for Embodied Learning](https://arxiv.org/abs/2603.28489) | Survey | Clearly explains the route from video generators to world models. |
 | A | 2025 | [From Video Generation to World Model](https://world-model-tutorial.github.io/) | CVPR tutorial | A quick introduction. |
 | A | Continuously updated | [Awesome From Video Generation to World Model](https://github.com/ziqihuangg/Awesome-From-Video-Generation-to-World-Model/) | Awesome list | Main entry point and monthly update source. |
@@ -239,7 +239,7 @@ In 3D consistency, we separate evaluation into:
 
 ### 11.3 3D Consistency Tools
 
-| Priority | Year | Paper | Availability | How to use it in the project |
+| Priority | Year | Paper | Availability | Use case |
 | --- | --- | --- | --- | --- |
 | A | 2025 | [VGGT: Visual Geometry Grounded Transformer](https://arxiv.org/abs/2503.11651) | [Code / Weights](https://github.com/facebookresearch/vggt) | Estimate cameras, depth, and point maps to build reconstruction consistency metrics. |
 | A | 2023 | [DUSt3R: Geometric 3D Vision Made Easy](https://arxiv.org/abs/2312.14132) | [Code / Weights](https://github.com/naver/dust3r) | A foundational tool for 3D reconstruction from uncalibrated image pairs. |
