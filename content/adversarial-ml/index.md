@@ -2,7 +2,7 @@
 title: Adversarial ML
 tags:
   - ml
-  - adversarial
+  - adversarial attacks
   - robustness
 ---
 
