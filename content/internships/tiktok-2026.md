@@ -64,7 +64,7 @@ I deployed a **Kafka/Flink** nearline cache layer to continuously ingest and upd
 
 As a result of this increased coverage, this had resulted in an improvement of conversion rate by **1.1%**, while also being able to handle 16 queries per second (QPS).
 
-### ETL Expansion
+### Data Engineering ETL Expansion
 
 The existing ETL pipeline (built on **Spark/Hive/RPC**) lacked sufficient signal coverage across many regions, limiting how well downstream retrieval and ranking could serve local queries. I enhanced it by injecting **posterior data**, which included click behaviour derived from historical search sessions.
 
