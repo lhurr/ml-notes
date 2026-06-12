@@ -40,7 +40,7 @@ I iterated across several techniques including **QLoRA** and **LoRA**, ultimatel
 
 ### Location Signal Retrieval Engine
 
-US local search queries had lacklustre recall due to upstream issues with the existing location-based services. I designed a **multimodal vertical-based recall engine** to resolve this, combining three recall modules:
+We discovered US local search queries had lacklustre recall due to upstream issues with the existing location-based services. I designed a **multimodal vertical-based recall engine** to resolve this, combining three recall modules:
 
 | Module | Description |
 | --- | --- |
@@ -52,7 +52,7 @@ Together these modules improved US query coverage by **~15%**.
 
 ### Nearline Cache Layer
 
-Location signals are served across 3 layers, offline, nearline and online. The ultimate goal is to have a great coverage when a search happens.
+The location signals I worked on are served across 3 layers, offline, nearline and online. The ultimate goal is to have a great coverage when a search happens.
 
 | Tier | Latency | How it works |
 | --- | --- | --- |
