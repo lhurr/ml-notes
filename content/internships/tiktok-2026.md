@@ -21,7 +21,7 @@ flowchart LR
     B["Query Rewriting"]
     C["POI Name"]
     D["Recall (Location-Based Services)"]
-    E["Candidate POIs\n+ metadata"]
+    E["Candidate POIs metadata"]
     F["Listwise Matching"]
     G["Best POI"]
 
@@ -65,6 +65,15 @@ I deployed a **Kafka/Flink** nearline cache layer to continuously ingest and upd
 As a result of this increased coverage, this had resulted in an improvement of conversion rate by **1.1%**, while also being able to handle 16 queries per second (QPS).
 
 ### ETL Expansion
+
+The existing ETL pipeline (built on **Spark/Hive/RPC**) lacked sufficient signal coverage across many regions, limiting how well downstream retrieval and ranking could serve local queries. I enhanced it by injecting **posterior data**, which included click behaviour derived from historical search sessions.
+
+The core idea is to estimate whether a query has **exact** or **fuzzy** intent by looking at how concentrated its clicks are:
+
+- **Exact intent**: clicks are isolated and concentrated on a single POI (e.g. users searching *"McDonald's Orchard"* almost always click the same specific outlet). The query maps reliably to one target.
+- **Fuzzy intent**: clicks are spread across many POIs (e.g. *"good coffee near me"* lands on different cafes each time). The query expresses a category or preference rather than a specific destination.
+
+This classification feeds downstream signals with a more precise prior on what the user actually wants, allowing retrieval and ranking to weight exact-match signals more heavily for exact queries and broaden recall for fuzzy ones. Applying this across **10 regions** boosted downstream signal coverage by **14+%**.
 
 ### Anchor Search with Multilingual BERT
 
