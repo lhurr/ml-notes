@@ -7,7 +7,7 @@ tags:
 
 ### Some Interesting Papers
 
-The two papers I found most interesting were **WBench: A Comprehensive Multi-turn Benchmark for Interactive Video World Model Evaluation** and **WorldBench: Disambiguating Physics for Diagnostic Evaluation of World Models** (see [[Video World Models]] for the complete benchmark catalogue).
+Two papers I found most interesting were **WBench: A Comprehensive Multi-turn Benchmark for Interactive Video World Model Evaluation** and **WorldBench: Disambiguating Physics for Diagnostic Evaluation of World Models** (see [[Video World Models]] for the complete benchmark catalogue).
 
 ### Problems These Papers Address
 

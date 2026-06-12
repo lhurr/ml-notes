@@ -9,7 +9,7 @@ tags: [internship, tiktok, ml-engineering, search, nlp]
 
 ## What I Worked On
 
-I interned at TikTok Search team during 2026 spring. I primarily worked on serving and scaling location signals to the search engine for downstream retrieval and ranking.
+I interned at TikTok Search team during 2026 spring. I primarily worked on serving and scaling location signals to the search engine for downstream retrieval and ranking. I used C++ and Python.
 
 ### Small Language Model Optimization
 
