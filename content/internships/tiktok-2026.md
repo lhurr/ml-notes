@@ -19,9 +19,9 @@ I designed and optimized **Small Language Models** for **query rewriting** and *
 flowchart LR
     A["Raw Query"]
     B["Query Rewriting"]
-    C["POI Name"]
+    C["Destination name"]
     D["Recall (Location-Based Services)"]
-    E["Candidate POIs metadata"]
+    E["Candidate POIs + metadata"]
     F["Listwise Matching"]
     G["Best POI"]
 
