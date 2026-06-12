@@ -12,7 +12,7 @@ I interned at TikTok T&S algorithms team during my first summer
 
 ### Large Scale Feature Selection
 
-To scale down 2,000+ video features for rapid dataset rollout, I applied [mRMR](https://github.com/smazzanti/mrmr) (minimum Redundancy Maximum Relevance), a greedy feature selection algorithm that uses **mutual information** as the scoring mechanism for both relevance and redundancy.
+To scale down 2,000+ video features for rapid dataset rollout, I applied an open source technique, [mRMR](https://github.com/smazzanti/mrmr) (minimum Redundancy Maximum Relevance), a greedy feature selection algorithm that uses **mutual information** as the scoring mechanism for both relevance and redundancy.
 
 The objective is to select a subset $S$ of $k$ features that jointly maximizes relevance to the target while minimizing pairwise redundancy:
 
