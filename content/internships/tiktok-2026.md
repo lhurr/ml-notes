@@ -60,15 +60,15 @@ The location signals I worked on are served across 3 layers, offline, nearline a
 | **Nearline** | Milliseconds (cached) | A streaming pipeline (e.g. Kafka/Flink) continuously updates a fast cache so signals are pre-computed but recent |
 | **Online** | Milliseconds | Signals are computed live at query time |
 
-I deployed a **Kafka/Flink** nearline cache layer to continuously ingest and update location signals, serving them to the search engine in under **250 ms** per query. This had improved location signal coverage by 12%. After integrating it into the C++ search engine, while monitoring its metrics, we eventually ran A/B tests.
+I deployed a **Kafka + Flink** nearline cache architecture to continuously ingest and update location signals, serving them to the search engine in under **250 ms** per query. This had improved location signal coverage by 12%. After integrating it into the C++ search engine, while monitoring its metrics, we eventually ran A/B tests.
 
-As a result of this increased coverage, this had resulted in an improvement of conversion rate by **1.1%**, while also being able to handle 16 queries per second (QPS).
+As a result of this increased coverage, this had resulted in an improvement of conversion rate by **1.1%**, while also being able to handle 16,000+ queries per second (QPS).
 
 ### Data Engineering ETL Expansion
 
 The existing ETL pipeline (built on **Spark/Hive/RPC**) lacked sufficient signal coverage across many regions, limiting how well downstream retrieval and ranking could serve local queries. I enhanced it by injecting **posterior data**, which included click behaviour derived from historical search sessions.
 
-The core idea is to estimate whether a query has **exact** or **fuzzy** intent by looking at how concentrated its clicks are:
+I proposed an idea which was to estimate whether a query has **exact** or **fuzzy** intent by looking at how concentrated its clicks are:
 
 - **Exact intent**: clicks are isolated and concentrated on a single POI (e.g. users searching *"McDonald's Orchard"* almost always click the same specific outlet). The query maps reliably to one target.
 - **Fuzzy intent**: clicks are spread across many POIs (e.g. *"good coffee near me"* lands on different cafes each time). The query expresses a category or preference rather than a specific destination.
