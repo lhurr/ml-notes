@@ -11,7 +11,7 @@ tags: [internship, tiktok, ml-engineering, search, nlp]
 
 I interned at TikTok Search team during 2026 spring. I primarily worked on serving and scaling location signals to the search engine for downstream retrieval and ranking. I used C++ and Python.
 
-### Small Language Model Optimization
+### Optimising Small Language Models (SLM) for local search
 
 I designed and optimized **Small Language Models** for **query rewriting** and **Point of Interest (POI) listwise matching**. Given a query with a local life service intent, the pipeline works as follows:
 

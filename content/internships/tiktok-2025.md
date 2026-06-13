@@ -43,9 +43,9 @@ Apart from this, I also wrote code to estimate the GPU card to allocate differen
 
 ### Moderation Service Level Indicator Metrics
 
-I was also in charge of maintaining some of the team's important dashboards. In weeks within my internship noticed inconsistencies in reported service level indicator metrics some dashboards showed sudden performance drops while others remained stable. Inaccurate metrics risked misleading teams about the health of the moderation system, so my task was to identify the root cause.
+I was also in charge of maintaining some of the team's important dashboards. In weeks within my internship, I noticed inconsistencies in reported service level indicator metrics some dashboards showed sudden performance drops while others remained stable. The inaccurate metrics risked misleading teams about the health of the moderation system, so my task was to identify the root cause.
 
-I traced the pipeline end-to-end, examining feature generation jobs, aggregation logic, and downstream metrics computation. The bug caused certain metrics to be overcounted during aggregation, which skewed downstream dashboards.
+I traced the pipeline end-to-end, examining attribute generation jobs, aggregation logic, and downstream metrics computation. The bug caused certain metrics to be overcounted during aggregation, which skewed downstream dashboards.
 
 **Fix:**
 
