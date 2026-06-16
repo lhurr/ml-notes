@@ -8,5 +8,5 @@ tags: [internship, paypal, ml-engineering]
 **Period:** Summer 2026
 
 ## What I Worked On
-Working on embedding retrieval & browser agents
+Working on embedding retrieval & browser agents infrastructure
 <!-- TODO: coming soon -->

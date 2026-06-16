@@ -32,9 +32,9 @@ flowchart LR
 2. **Recall**: retrieve a list of candidate POIs and their metadata using location-based and vertical recall
 3. **Listwise matching**: select the single POI that best matches the original query
 
-To enable resource-efficient serving, I applied **model distillation** fine-tuning along with **GRPO** post-training to optimize a 1B parameter model.
+To enable resource-efficient serving, I first gathered hundreds of thousands of search logs, labelled using a large LLM, then applied **model distillation** fine-tuning along with **GRPO** post-training to optimize a 1B parameter model. 
 
-I also brainstormed and applied novel data augmentations to compact and transform the training data, reducing deployment resource requirements and simplifying the scenario for the model.
+I also brainstormed and applied novel data augmentations to compact and transform the training data, reducing deployment resource requirements and simplifying the inference scenario for the model.
 
 I iterated across several techniques including **QLoRA** and **LoRA**, ultimately achieving 94% precision/recall.
 
@@ -46,11 +46,11 @@ We discovered US local search queries had lacklustre recall due to upstream issu
 | --- | --- |
 | Google-based recall | Leverages Google Places signals as an additional recall source |
 | Video anchor multimodal recall | Uses multimodal signals from video anchors to surface relevant POIs |
-| Vertical places recall | Taps vertical-specific place indices for finer-grained coverage |
+| Vertical places recall | Taps vertical-specific place information for finer-grained coverage |
 
 Together these modules improved US query coverage by **~15%**.
 
-### Nearline Cache Layer
+### Nearline Cache Arhitecture
 
 The location signals I worked on are served across 3 layers, offline, nearline and online. The ultimate goal is to have a great coverage when a search happens.
 
