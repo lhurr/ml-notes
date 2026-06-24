@@ -8,9 +8,9 @@ tags: [internship, tiktok, ml-engineering, data-engineering]
 **Period:** Summer 2025
 
 ## What I Worked On
-I interned at TikTok T&S algorithms team during my first summer
+I interned at TikTok T&S algorithms team during my first summer, working on feature selection, model and resource engineering.
 
-### Large Scale Feature Selection
+### Large Scale Feature Engineering
 
 To scale down 2,000+ video features for rapid dataset rollout, I applied an open source technique, [mRMR](https://github.com/smazzanti/mrmr) (minimum Redundancy Maximum Relevance), a greedy feature selection algorithm that uses **mutual information** as the scoring mechanism for both relevance and redundancy.
 

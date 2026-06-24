@@ -34,9 +34,9 @@ flowchart LR
 
 To enable resource-efficient serving, I first gathered hundreds of thousands of search logs, labelled using a large LLM, then applied **model distillation** fine-tuning along with **GRPO** post-training to optimize a 1B parameter model. 
 
-I also brainstormed and applied novel data augmentations to compact and transform the training data, reducing deployment resource requirements and simplifying the inference scenario for the model.
+I also brainstormed and applied novel data augmentations to compact and transform the training data, reducing deployment resource requirements and simplifying the inference scenario for the model. Initially, we required 4 models for this complex task, it was eventually combined into a single model after repeated improvement iterations
 
-I iterated across several techniques including **QLoRA** and **LoRA**, ultimately achieving 94% precision/recall.
+I iterated experiments across several techniques including **QLoRA** and **LoRA**, ultimately achieving 94% precision/recall.
 
 ### Location Signal Retrieval Engine
 
@@ -48,11 +48,11 @@ We discovered US local search queries had lacklustre recall due to upstream issu
 | Video anchor multimodal recall | Uses multimodal signals from video anchors to surface relevant POIs |
 | Vertical places recall | Taps vertical-specific place information for finer-grained coverage |
 
-Together these modules improved US query coverage by **~15%**.
+After implementation and integration, together these modules improved US query coverage by **~15%**.
 
 ### Nearline Cache Arhitecture
 
-The location signals I worked on are served across 3 layers, offline, nearline and online. The ultimate goal is to have a great coverage when a search happens.
+The location signals I worked on are served across 3 layers, offline, nearline and online. The ultimate goal is to have a good coverage when a search happens.
 
 | Tier | Latency | How it works |
 | --- | --- | --- |
@@ -60,20 +60,20 @@ The location signals I worked on are served across 3 layers, offline, nearline a
 | **Nearline** | Milliseconds (cached) | A streaming pipeline (e.g. Kafka/Flink) continuously updates a fast cache so signals are pre-computed but recent |
 | **Online** | Milliseconds | Signals are computed live at query time |
 
-I deployed a **Kafka + Flink** nearline cache architecture to continuously ingest and update location signals, serving them to the search engine in under **250 ms** per query. This had improved location signal coverage by 12%. After integrating it into the C++ search engine, while monitoring its metrics, we eventually ran A/B tests.
+I deployed a **Kafka + Flink** nearline cache architecture to continuously ingest queries and update its location signals, serving them to the main search engine in under **250 ms** per query. After integrating the core functionality, I added a observability layer to monitor its metrics, we eventually ran A/B tests.
 
-As a result of this increased coverage, this had resulted in an improvement of conversion rate by **1.1%**, while also serving 8,000+ queries per second (QPS).
+As a result of this nearline solution, we observed an increased coverage of 12% for location signals. Consequently, this had resulted in an improvement of conversion rate by **1.1%**, while also serving 8,000+ queries per second (QPS).
 
 ### Data Engineering ETL Expansion
 
-The existing ETL pipeline (built on **Spark/Hive/RPC**) lacked sufficient signal coverage across many regions, limiting how well downstream retrieval and ranking could serve local queries. I enhanced it by injecting **posterior data**, which included click behaviour derived from historical search sessions.
+We had an existing ETL pipeline (built with **Spark/Hive/RPC** technologies) that lacked sufficient query intent coverage across many regions, limiting how well downstream retrieval and ranking could serve local queries. I enhanced it by injecting **posterior data**, which included click behaviour derived from historical search sessions.
 
 I proposed an idea which was to estimate whether a query has **exact** or **fuzzy** intent by looking at how concentrated its clicks are:
 
 - **Exact intent**: clicks are isolated and concentrated on a single POI (e.g. users searching *"McDonald's Orchard"* almost always click the same specific outlet). The query maps reliably to one target.
 - **Fuzzy intent**: clicks are spread across many POIs (e.g. *"good coffee near me"* lands on different cafes each time). The query expresses a category or preference rather than a specific destination.
 
-This classification feeds downstream signals with a more precise prior on what the user actually wants, allowing retrieval and ranking to weight exact-match signals more heavily for exact queries and broaden recall for fuzzy ones. Applying this across **10 regions** boosted downstream signal coverage by **14+%**.
+Converting this into a rule-based formula, this classification feeds downstream signals with a more precise prior on what the user actually wants, allowing retrieval and ranking to weight exact-match signals more heavily for exact queries and broaden recall for fuzzy ones. Applying this across **10 regions** boosted downstream signal coverage by **14+%**.
 
 ### Anchor Search with Multilingual BERT
 
