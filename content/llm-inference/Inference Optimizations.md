@@ -8,10 +8,6 @@ title: Inference Optimizations
 
 ### FlashAttention
 
-## KV Cache Optimizations
-
-See [[KV Cache]] for the cache itself; this section is the serving-side angle.
-
 ### PagedAttention
 
 ### MQA / GQA
