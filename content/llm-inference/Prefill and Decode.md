@@ -12,7 +12,7 @@ Autoregressive inference runs in two phases
 
 ### Prefill
 - Process the entire input prompt, consisting of system prompt + user msg in a **single forward pass**.
-- Builds the **KV cache** for every prompt token (keys/values stored per layer, per head).
+- Builds the **[[KV Cache|KV cache]]** for every prompt token (keys/values stored per layer, per head).
 - **Compute-bound:** one big matmul over `seq_len` tokens which results in high GPU utilization.
 - Produces the logits for the *first* generated token.
 - Latency metric: **TTFT** (time to first token).
