@@ -6,9 +6,3 @@ tags:
   - inference
   - systems
 ---
-
-## Notes
-
-- [[Prefill and Decode]]
-- [[KV Cache]]
-- [[Inference Optimizations]]

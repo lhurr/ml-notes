@@ -6,13 +6,11 @@ Hi, I'm **Lim Hur**, a machine learning engineer based in Singapore.
 
 A place to think out loud and keep a record of things I'm learning. Its mostly:
 
-- **Machine learning internship reflections**: what I worked on, what surprised me, my learnings and takeaways
+- **Machine learning experiences**: what I worked on, what surprised me, my learnings and takeaways
 - **Technical notes**: distilled from papers, blog posts, and open-source repositories I explored
 - **Writing**: rough thinking on ML research and systems I have been exploring
 
-The focus of this page is machine learning: training, inference, systems, and the research behind certain concepts. Some notes may be unpolished
-
-## Connect
+I want the focus of this page to be purely about AI/machine learning: training, inference, systems, and the research behind certain concepts
 
 <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; margin-top:0.5rem;">
 
