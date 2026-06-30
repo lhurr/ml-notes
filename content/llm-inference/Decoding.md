@@ -4,7 +4,29 @@ title: Decoding
 
 ## Overview
 
-To be written
+How I reason about LLM inference
+
+## Prefill & Decode
+
+Autoregressive inference runs in two phases
+
+### Prefill
+- Process the entire input prompt, consisting of system prompt + user msg in a **single forward pass**.
+- Builds the **KV cache** for every prompt token (keys/values stored per layer, per head).
+- **Compute-bound:** one big matmul over `seq_len` tokens which results in high GPU utilization.
+- Produces the logits for the *first* generated token.
+- Latency metric: **TTFT** (time to first token).
+
+### Decode
+- Generate one token at a time, each conditioned on all previous tokens.
+- Each step only does a forward pass for the **single new token**: reuses the KV cache.
+- **Memory-bandwidth-bound:** tiny matmul (1 token) but must read the whole KV cache + weights each step → GPU underutilized. This is because we need to read weights from the HBM
+- Latency metric: **TPS** (tokens per second).
+
+### Difference
+- Prefill cost scales with prompt length while decode cost scales with output length.
+- KV cache can be thought as the link where prefill fills it, decode reads and appends to it.
+- Prefill is executed essentially once (1 pass), while decode has output_length - 1 passes, which is why decode is memory bottlenecked
 
 ## Greedy & Beam Search
 
@@ -145,6 +167,12 @@ Some drawbacks:
 
 ## Speculative Decoding
 
+## Speculative Speculative Decoding
+
+
 ## References
 
-https://arxiv.org/pdf/2210.15097
+1. https://arxiv.org/pdf/2210.15097
+2. Inference Engineering book by Baseten
+3. https://arxiv.org/abs/2211.17192
+4. 
