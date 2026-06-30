@@ -1,5 +1,5 @@
 ---
-title: Decoding
+title: Prefill and Decode
 ---
 
 ## Overview
@@ -24,7 +24,6 @@ Autoregressive inference runs in two phases
 - Latency metric: **TPS** (tokens per second).
 
 ### Difference
-- Prefill cost scales with prompt length while decode cost scales with output length.
 - KV cache can be thought as the link where prefill fills it, decode reads and appends to it.
 - Prefill is executed essentially once (1 pass), while decode has output_length - 1 passes, which is why decode is memory bottlenecked
 
