@@ -11,10 +11,26 @@ To be written
 ## Sampling
 
 ### Temperature
+Temperature controls the diversity of text generated, a low temperature results in more deterministic and repetitive texts, while higher results in more diversity. The token distribution is more uniform at higher temperatures.
+
+![[temperature-softmax.png]]
+*Low temperature sharpens the softmax into a peaked distribution; high temperature flattens it toward uniform. ([source](https://nipunbatra.github.io/blog/posts/2025-07-09-temperature-softmax.html))*
 
 ### Top-k
+Top `k` limits to `k` vocab for the LLM to decide, and discards everything else.  
+
+1. Get logits over the full vocab → softmax to probabilities.
+2. Keep the top `k` tokens by probability; set the other tokens' probability to 0.
+3. Renormalize the remaining `k` so they sum to 1.
+4. Sample from that limited distribution.
 
 ### Top-p
+Top `p` restricts the selection of words that has a combination of probabilities that sums up to a value of `p` 
+
+1. Softmax over the vocab to get probabilities
+2. Sort it
+3. Gather all tokens where cumulative prob less than p
+4. Renormalize to 1 and sample from that new distribution
 
 ## Contrastive Decoding (CD)
 
