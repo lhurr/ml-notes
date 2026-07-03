@@ -12,7 +12,7 @@ Autoregressive inference runs in two phases
 
 ### Prefill
 - Process the entire input prompt, consisting of system prompt + user msg in a **single forward pass**.
-- Builds the **[[KV Cache|KV cache]]** for every prompt token (keys/values stored per layer, per head).
+- Builds the **[[Inference Optimizations#Caching|KV cache]]** for every prompt token (kv stored per layer, per head).
 - **Compute-bound:** one big matmul over `seq_len` tokens which results in high GPU utilization.
 - Produces the logits for the *first* generated token.
 - Latency metric: **TTFT** (time to first token).
@@ -166,12 +166,96 @@ Some drawbacks:
 
 ## Speculative Decoding
 
-## Speculative Speculative Decoding
+Speculative decoding improves token per second through the use of 2 models, the draft model and target model (the one we want to accelerate).
 
+1. We have a draft model, usually a smaller one to generate `N` draft tokens autoregressively
+2. We append these draft tokens to the prompt and run one forward pass on the target model to score all these draft tokens. 
+3. We run rejection sampling on these draft tokens.
+4. So total tokens we get is up to `N+1` best case, if none are rejected
+
+### Code snippet:
+
+````python
+import transformers as tr
+import torch
+
+draft_path = "Qwen/Qwen2.5-Coder-0.5B-Instruct"   # small + fast, proposes tokens
+target_path = "Qwen/Qwen2.5-Coder-1.5B-Instruct"  # the model we want to accelerate
+
+tokenizer = tr.AutoTokenizer.from_pretrained(target_path)
+
+device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
+dtype = torch.bfloat16 if device == "cuda" else torch.float32
+
+draft = tr.AutoModelForCausalLM.from_pretrained(draft_path, torch_dtype=dtype).to(device).eval()
+target = tr.AutoModelForCausalLM.from_pretrained(target_path, torch_dtype=dtype).to(device).eval()
+
+
+@torch.no_grad()
+def speculative_generation(draft, target, prompt, max_tokens, gamma=4, temperature=1.0) -> str:
+    input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to(device)
+    prompt_len = input_ids.shape[1] # [batch, seq_len], kept only to slice the output at the end
+
+    generated = 0
+    while generated < max_tokens:
+        # 1. DRAFT: autoregressively propose gamma tokens, remembering each token's draft prob q
+        seq = input_ids
+        q_probs, proposed = [], []
+        for _ in range(gamma):
+            logits = draft(seq).logits[:, -1, :].squeeze(0)          # [vocab]
+            probs = torch.softmax(logits / temperature, dim=-1)
+            tok = torch.multinomial(probs, num_samples=1)            # sample from draft
+            q_probs.append(probs)
+            proposed.append(tok.item())
+            seq = torch.cat([seq, tok.view(1, 1)], dim=-1)
+
+        # 2. TARGET: ONE forward pass scores all gamma proposals + 1 bonus position.
+        #    the last gamma+1 logits predict the gamma drafted tokens plus one extra token.
+        target_logits = target(seq).logits[:, -(gamma + 1):, :].squeeze(0)   # [gamma+1, vocab]
+        p_probs = torch.softmax(target_logits / temperature, dim=-1)         # [gamma+1, vocab]
+
+        # 3. VERIFY: accept a prefix via rejection sampling, stop at the FIRST reject
+        n_accept = 0
+        for i in range(gamma):
+            tok = proposed[i]
+            p, q = p_probs[i, tok], q_probs[i][tok]   # target vs draft prob of the drafted token
+            r = torch.rand(1, device=device)
+            if r < torch.clamp(p / q, max=1.0):       # accept w.p. min(1, p/q)
+                n_accept += 1
+            else:
+                break                                 # first rejection: cut here
+
+        # commit accepted prefix
+        for tok in proposed[:n_accept]:
+            input_ids = torch.cat([input_ids, torch.tensor([[tok]], device=device)], dim=-1)
+
+        # 4. CORRECTION token
+        if n_accept == gamma:
+            next_probs = p_probs[gamma]                                  # all accepted -> free bonus token
+        else:
+            adjusted = torch.clamp(p_probs[n_accept] - q_probs[n_accept], min=0.0)  # resample from (p - q)+
+            next_probs = adjusted / adjusted.sum()
+        next_tok = torch.multinomial(next_probs, num_samples=1)
+        input_ids = torch.cat([input_ids, next_tok.view(1, 1)], dim=-1)
+        generated += n_accept + 1   # accepted prefix + correction token
+
+        if next_tok.item() == tokenizer.eos_token_id:
+            break
+
+    return tokenizer.decode(input_ids[0, prompt_len:])   # decode only the generated tokens
+````
+
+Some drawbacks:
+1. 2 models to deploy, extra VRAM (draft weights + its KV cache)
+2. Speedup depends on acceptance rate, a poor draft is more negative
+3. Draft runs `gamma` sequential forward passes per round, this latency is not free
+
+
+## Speculative Speculative Decoding
+Will write another day
 
 ## References
 
 1. https://arxiv.org/pdf/2210.15097
 2. Inference Engineering book by Baseten
 3. https://arxiv.org/abs/2211.17192
-4. 
