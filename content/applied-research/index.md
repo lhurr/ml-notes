@@ -1,5 +1,5 @@
 ---
-title: Publications
+title: Applied Research
 ---
 
 A collection of papers and research I have worked on.
