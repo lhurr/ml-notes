@@ -1,5 +1,10 @@
 ---
 title: Prefill and Decode
+tags:
+  - ml
+  - llm
+  - inference
+  - decoding
 ---
 
 ## Overview

@@ -1,5 +1,10 @@
 ---
 title: Inference Optimizations
+tags:
+  - ml
+  - llm
+  - inference
+  - systems
 ---
 
 ## Overview
