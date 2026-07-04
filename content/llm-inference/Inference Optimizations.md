@@ -8,6 +8,7 @@ tags:
 ---
 
 ## Overview
+These are techniques to improve tokens per second (TPS) and time to first token (TTFT) with minimal influence of quality
 
 ## Quantization
 
@@ -59,7 +60,7 @@ This works because of causal attention: a token's KV depends only on itself and 
 2. **Paged attention:** It partitions the KV caches into pages and uses a lookup table, so the KV cache doesnt have to be stored in contiguous memory.
 
 ## Parallelism
-
+Parallelism in LLM inference distributes computation across multiple GPUs to reduce latency and increase throughput, enabling faster token generation and concurrent request handling.
 
 ### Tensor parallelism
 Splits the tensor per layer across GPUs. It shares VRAM resources to make LLMs fast
@@ -73,6 +74,12 @@ Enables mixture of experts to be served across different GPUs
 
 ## Disaggregation
 
-### Prefill/decode separation
+Disaggregation separates the prefill and decode phases into different GPUs/nodes
 
-## References
+1. The prefill engine takes the input sequence and generates a KV cache while computing the first token.
+2. The prefill engine sends KV cache to decode engine
+3. The tokens are computed
+
+A great use case for disaggregation is serving a LLM in a code editor, where many developers are simultaneously passing in large and varied chunks of code as context.
+
+Tools include nvidia dynamo
