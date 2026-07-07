@@ -57,7 +57,7 @@ This works because of causal attention: a token's KV depends only on itself and 
 
 ### Attention techniques
 1. **Flash attention:** Uses specialized kernels for attention to reduce read/write from and to memory. It relies heavily on kernel fusion.
-2. **Paged attention:** It partitions the KV caches into pages and uses a lookup table, so the KV cache doesnt have to be stored in contiguous memory.
+2. **Paged attention:** It partitions the KV caches into pages and uses a lookup table, so the KV cache doesnt have to be stored in contiguous memory. This is what vLLM uses
 
 ## Parallelism
 Parallelism in LLM inference distributes computation across multiple GPUs to reduce latency and increase throughput, enabling faster token generation and concurrent request handling.

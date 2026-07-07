@@ -1,10 +1,5 @@
 ---
 title: Prefill and Decode
-tags:
-  - ml
-  - llm
-  - inference
-  - decoding
 ---
 
 ## Overview
@@ -199,7 +194,7 @@ target = tr.AutoModelForCausalLM.from_pretrained(target_path, torch_dtype=dtype)
 @torch.no_grad()
 def speculative_generation(draft, target, prompt, max_tokens, gamma=4, temperature=1.0) -> str:
     input_ids = tokenizer(prompt, return_tensors="pt").input_ids.to(device)
-    prompt_len = input_ids.shape[1] # [batch, seq_len], kept only to slice the output at the end
+    prompt_len = input_ids.shape[1] # [batch, seq_len]
 
     generated = 0
     while generated < max_tokens:
@@ -207,15 +202,16 @@ def speculative_generation(draft, target, prompt, max_tokens, gamma=4, temperatu
         seq = input_ids
         q_probs, proposed = [], []
         for _ in range(gamma):
-            logits = draft(seq).logits[:, -1, :].squeeze(0)          # [vocab]
+            logits = draft(seq).logits[:, -1, :].squeeze(0)          # [1, vocab] -> [vocab]
             probs = torch.softmax(logits / temperature, dim=-1)
-            tok = torch.multinomial(probs, num_samples=1)            # sample from draft
+
+            tok = torch.multinomial(probs, num_samples=1)            # sshape: [1]
             q_probs.append(probs)
             proposed.append(tok.item())
-            seq = torch.cat([seq, tok.view(1, 1)], dim=-1)
+            seq = torch.cat([seq, tok.view(1, 1)], dim=-1) # [1, L] + [1, 1]
 
-        # 2. TARGET: ONE forward pass scores all gamma proposals + 1 bonus position.
-        #    the last gamma+1 logits predict the gamma drafted tokens plus one extra token.
+        # 2. TARGET: ONE forward pass scores all + 1 bonus position.
+
         target_logits = target(seq).logits[:, -(gamma + 1):, :].squeeze(0)   # [gamma+1, vocab]
         p_probs = torch.softmax(target_logits / temperature, dim=-1)         # [gamma+1, vocab]
 
@@ -230,19 +226,18 @@ def speculative_generation(draft, target, prompt, max_tokens, gamma=4, temperatu
             else:
                 break                                 # first rejection: cut here
 
-        # commit accepted prefix
+        # accepted
         for tok in proposed[:n_accept]:
             input_ids = torch.cat([input_ids, torch.tensor([[tok]], device=device)], dim=-1)
 
         # 4. CORRECTION token
         if n_accept == gamma:
-            next_probs = p_probs[gamma]                                  # all accepted -> free bonus token
+            next_probs = p_probs[gamma]                                  # all accepted
         else:
-            adjusted = torch.clamp(p_probs[n_accept] - q_probs[n_accept], min=0.0)  # resample from (p - q)+
+            adjusted = torch.clamp(p_probs[n_accept] - q_probs[n_accept], min=0.0)  # resample
             next_probs = adjusted / adjusted.sum()
         next_tok = torch.multinomial(next_probs, num_samples=1)
         input_ids = torch.cat([input_ids, next_tok.view(1, 1)], dim=-1)
-        generated += n_accept + 1   # accepted prefix + correction token
 
         if next_tok.item() == tokenizer.eos_token_id:
             break
@@ -251,9 +246,9 @@ def speculative_generation(draft, target, prompt, max_tokens, gamma=4, temperatu
 ````
 
 Some drawbacks:
-1. 2 models to deploy, extra VRAM (draft weights + its KV cache)
+1. 2 models to deploy, extra VRAM needed
 2. Speedup depends on acceptance rate, a poor draft is more negative
-3. Draft runs `gamma` sequential forward passes per round, this latency is not free
+3. Draft runs `gamma` sequential forward passes per round
 
 
 ## Speculative Speculative Decoding

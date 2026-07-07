@@ -1,11 +1,11 @@
 ---
-title: "TikTok (Feb 2026 - May 2026)"
+title: "TikTok (Spring 2026)"
 tags: [internship, tiktok, ml-engineering, search, nlp]
 ---
 
 **Team:** Search
 
-**Period:** Feb 2026 – May 2026
+**Period:** Spring 2026
 
 ## What I Worked On
 
