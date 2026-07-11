@@ -29,6 +29,63 @@ Autoregressive inference runs in two phases
 
 ## Greedy & Beam Search
 
+### Greedy decoding
+
+Greedy decoding selects the most probable token at every decode step.
+
+1. Start with the input sequence.
+2. Compute the probability distribution for the next token.
+3. Select the token with the highest probability.
+4. Append it to the sequence.
+5. Repeat until an end-of-sequence token or the maximum length is reached.
+
+
+### Beam search
+
+Beam search keeps the best $B$ parallel sequences, called *beams*, at each step instead of retaining only one.
+Each beam is expanded with candidate next tokens, then only the top highest-scoring continuations are kept.
+This explores more possible sequences than greedy decoding, at the cost of additional compute and memory.
+
+For a generated sequence:
+
+$$
+y = (y_1, y_2, \dots, y_T)
+$$
+
+The beam-search score is:
+
+$$
+\text{score}(y)
+=
+\log \prod_{t=1}^{T}
+P(y_t \mid y_{<t}, x)
+$$
+
+where:
+
+- $x$ is the input or prompt
+- $y_t$ is the token generated at step $t$
+- $y_{<t}$ means all previously generated tokens
+- $T$ is the sequence length
+
+Because summing log-probabilities tends to favor shorter sequences, beam search commonly uses length normalization:
+
+$$
+\text{normalized score}(y)
+=
+\frac{
+\log \prod_{t=1}^{T}
+P(y_t \mid y_{<t}, x)
+}{
+T^\alpha
+}
+$$
+
+Here, $\alpha$ controls the length penalty.
+
+- $B = 1$ reduces beam search to greedy decoding.
+- Larger $B$ can improve sequence-level likelihood, but its more compute expensive
+
 ## Sampling
 
 ### Temperature
