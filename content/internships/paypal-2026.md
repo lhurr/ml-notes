@@ -20,7 +20,7 @@ Working in dispute domain, on large scale embedding search & browser agents infr
 
 **Routing agent:** I developed a routing agent that decides how to fetch tracking status for a given case, choosing between an internal carrier API against the browser agent. The problem was that the API could not cover certain carriers, and the browser agent could not operate on some carriers, so both of them are needed for improved coverage 
 
-To do this, historical dispute data is used to curate and derive carrier statistics and heuristics (capcha occurances, anti-bot measures, page responsiveness, page layouts, etc), to accurately route each case to the path that has worked most reliably for it.
+To ensure routing works effectively, I proposed that we used historical dispute data to engineer and derive carrier statistics and heuristics (capcha occurances, anti-bot measures, page responsiveness, page layouts, etc), to accurately route each case to the path that has worked most reliably for it.
 
 **Tool orchestration:** When each route a case to the browser path, a browser tool use is orchestrated to navigate the carrier's site, read the tracking page, and extract the delivery status and address.
 
