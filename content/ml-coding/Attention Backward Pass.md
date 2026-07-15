@@ -9,7 +9,7 @@ tags:
 
 ## Goal
 
-Implement the attention backward pass.
+Implement the attention backward pass & loss.
 
 ## Notes
 
