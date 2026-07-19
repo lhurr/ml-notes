@@ -10,6 +10,8 @@ Notes on how I work with coding agents day to day.
 
 My setup splits based on how long / much effort is needed to complete the task. Long tasks get an autonomous loop that grinds overnight, while short tasks get a well-equipped single session where most of the effort goes into feeding the agent the right context cheaply.
 
+**Model:** GPT 5.6 Sol/ Claude Opus 4.8
+
 ## Long tasks
 
 For anything open-ended (optimise this, sweep these ideas, improve this metric), I run [gnhf](https://github.com/kunchenguid/gnhf).
@@ -25,7 +27,7 @@ Each successful iteration lands as its own git commit, so in the morning I get a
 For scoped work in a single session, these are the tooling I leverage:
 
 **Docs.**
-[Context7](https://github.com/upstash/context7) for up to date library documentation, which kills the "confidently wrote an API that was deprecated two versions ago" failure mode.
+[Context7](https://github.com/upstash/context7) for up to date library documentation. I find it useful when using a niche software, where the LLM may not have been trained on.
 
 **Web.**
 Websearch for discovery, and the [Jina MCP](https://github.com/jina-ai/MCP) to actually pull page content down as clean markdown when I need the full source rather than a snippet.
