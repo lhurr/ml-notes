@@ -33,15 +33,14 @@ For scoped work in a single session, these are the tooling I leverage:
 Websearch for discovery, and the [Jina MCP](https://github.com/jina-ai/MCP) to actually pull page content down as clean markdown when I need the full source rather than a snippet.
 
 **Browser.**
-[Playwright MCP](https://github.com/microsoft/playwright-mcp) for web automation and E2E testing, so the agent can drive a real browser and verify the change instead of asserting that it should work.
+[Playwright MCP](https://github.com/microsoft/playwright-mcp) for web automation and E2E testing, so the agent can drive a real browser and verify the change.
 
 **Codebase.**
 [codebase-memory-mcp](https://github.com/DeusData/codebase-memory-mcp) indexes the repo into a persistent knowledge graph of functions, classes, call chains and routes.
-Structural questions (who calls this, what breaks if I change it, what is dead) get answered from the graph in a few hundred tokens instead of a grep that dumps 80k.
-This is the single biggest token saver in the setup.
+Structural questions (who calls this, what breaks if I change it, what is dead) get answered from the graph in a few hundred tokens instead of a grep that dumps 80k LoC.
 
 **Frontend.**
-The [shadcn MCP](https://ui.shadcn.com/docs/mcp) plus its React skills, so components get pulled from the registry and wired up properly rather than hand-rolled from memory.
+The [shadcn MCP](https://ui.shadcn.com/docs/mcp) plus its React skills, so components get pulled from the registry.
 
 **Cloud and infrastructure.**
 For cloud tooling, I use [Supabase MCP](https://github.com/supabase-community/supabase-mcp) for database work, so schema, migrations and queries happen against the project. Often, I also find myself using the [gcloud MCP](https://github.com/googleapis/gcloud-mcp) which covers the GCP side by driving the `gcloud` CLI.
