@@ -47,14 +47,14 @@ For cloud tooling, I use [Supabase MCP](https://github.com/supabase-community/su
 
 
 **GitHub.**
-[gh-axi](https://github.com/kunchenguid/gh-axi), a wrapper around `gh` built on the [AXI](https://github.com/kunchenguid/axi) design principles.
+I use [gh-axi](https://github.com/kunchenguid/gh-axi), a wrapper around `gh` built on the [AXI](https://github.com/kunchenguid/axi) design principles.
 It emits TOON (Token-Oriented Object Notation) instead of JSON, which is roughly 40% cheaper for the same payload, and returns structured errors with next-step hints.
-The published benchmarks put it at 100% vs 86% task success against raw `gh`, and 66% cheaper than the GitHub MCP server with half the turns.
+Its published benchmarks put it at 100% vs 86% task success against raw `gh`, and 66% cheaper than the GitHub MCP server with half the turns.
 
 **Learning a codebase.**
 I use the `grill-me` skill which gets the agent to relentless gather and ask me questions so that it has a full scope of requirements without ambiguity. I found it useful for onboarding onto unfamiliar codebase
 
-## Shipping: the gate
+## Shipping
 
 I run [no-mistakes](https://github.com/kunchenguid/no-mistakes) which is a local git proxy. It spins up a disposable worktree, runs an AI-driven validation pipeline, and forwards the branch to the configured push target only after every check passes.
 
