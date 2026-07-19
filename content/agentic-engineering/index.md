@@ -50,7 +50,6 @@ For cloud tooling, I use [Supabase MCP](https://github.com/supabase-community/su
 [gh-axi](https://github.com/kunchenguid/gh-axi), a wrapper around `gh` built on the [AXI](https://github.com/kunchenguid/axi) design principles.
 It emits TOON (Token-Oriented Object Notation) instead of JSON, which is roughly 40% cheaper for the same payload, and returns structured errors with next-step hints.
 The published benchmarks put it at 100% vs 86% task success against raw `gh`, and 66% cheaper than the GitHub MCP server with half the turns.
-Same idea as the knowledge graph: the win comes from the output format, not from a smarter model.
 
 **Learning a codebase.**
 I use the `grill-me` skill which gets the agent to relentless gather and ask me questions so that it has a full scope of requirements without ambiguity. I found it useful for onboarding onto unfamiliar codebase
