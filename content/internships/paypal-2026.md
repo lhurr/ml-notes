@@ -8,17 +8,21 @@ tags: [internship, paypal, ml-engineering]
 **Period:** Summer 2026
 
 ## What I Worked On
-Working in dispute domain, on large scale embedding search & browser agents infrastructure
+Working in dispute domain, on large scale context retrieval & browser agents engineering
 
-### Instant resolution embedding search
+### Instant resolution context retrieval
 
 
 
 ### Agents for parcel case validation
 
-**Goal:** Given a dispute case that relates to parcel shipping, we needed to validate the shipping address and determine the parcel's tracking status so the case can be resolved automatically.
+**Goal:** Given a dispute case that relates to parcel shipping, we needed to validate the shipping address and determine the parcel's tracking status so we can provide more context for the review process.
 
-**Routing agent:** I developed a routing agent that decides how to fetch tracking status for a given case, choosing between an internal carrier API against the browser agent. The problem was that the API could not cover certain carriers, and the browser agent could not operate on some carriers, so both of them are needed for improved coverage 
+![[parcel-case-validation.png]]
+
+The system uses several components:
+
+**Routing agent:** I worked on a routing agent that decides how to fetch tracking status for a given case, choosing between an internal carrier API against the browser agent. The problem was that the API could not cover certain carriers, and the browser agent could not operate on some carriers, so both of them are needed for improved coverage 
 
 To ensure routing works effectively, I proposed that we used historical dispute data to engineer and derive carrier statistics and heuristics (capcha occurances, anti-bot measures, page responsiveness, page layouts, etc), to accurately route each case to the path that has worked most reliably for it.
 
