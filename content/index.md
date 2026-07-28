@@ -12,16 +12,16 @@ A place to think out loud and keep a record of things I'm learning. Its mostly:
 
 I want the focus of this page to be purely about AI/machine learning: training, inference, systems, and the research behind certain concepts
 
-## What I'm working on
+### What I'm working on
 
 - Scaling and building [BrandCodes](https://brandcodes.io), the infrastructure layer behind GS1 2D barcodes (raised $10k funding under NUS Enterprise, top 10% YC).
 - Research on consistency within video world models, paper publication soon!
 
-## Open source
+### Open source
 
 - [WRBench](https://github.com/JinPLu/WRBench): camera-controlled generation and diagnostic evaluation of video world models
 
-## Hackathons and awards
+### Hackathons
 
 - **OpenAI x Sea Hackathon '26** - Top 5
 - **SingHacks '25** - Champions, $5k
