@@ -23,7 +23,7 @@ I want the focus of this page to be purely about AI/machine learning: training, 
 
 ### Hackathons
 
-- **OpenAI x Sea Hackathon '26**: Top 5 - [swarm of agent shoppers](https://github.com/choiwab/synth-shoppers) to validate your new product on Shopee
+- **OpenAI x Sea Hackathon '26**: Top 5 - [swarm of agent shoppers](https://github.com/choiwab/synth-shoppers) to validate your new product listing on Shopee
 - **SingHacks '25**: Champions, $5k - [decentralized AI marketplace](https://github.com/ProvidAI/SynapticaWeb) facilitating x402 micropayments and smart contract verification
 - **Hedera Hackathon '25**: Winners, $1k - DeSci mutli-agent platform with A2A settlement
 
