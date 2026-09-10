@@ -82,6 +82,6 @@ To serve location signals in real-time, Small Language Models are not feasible a
 
 In contrast to the SLM in the nearline layer, it can afford to be **listwise** in POI matching stage as it receives the full candidate list and scores items relative to one another, capturing inter-candidate dependencies. This is more expressive but requires encoding all candidates together, making latency grow with list size.
 
-At query time, that trade-off inverts. Anchor search runs **online**, so every millisecond matters. A **pointwise** model scores each candidate independently, which means it can run in parallel across candidates and its latency stays constant regardless of list size. The cost is that it cannot compare candidates against each other directly, but for NER and first-pass ranking this is an acceptable trade-off.
+At query time, anchor search runs **online**, which meant every millisecond mattered. A **pointwise** model scores each candidate independently, which means it can run in parallel across candidates and its latency stays constant regardless of list size. The cost is that it cannot compare candidates against each other directly, but for NER and first-pass ranking this is an acceptable trade-off.
 
 I distilled and fine-tuned multilingual BERT for this role, achieving **89% anchor search accuracy**.

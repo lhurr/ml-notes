@@ -18,7 +18,14 @@ Working in dispute domain, on large scale context retrieval & browser agents eng
 
 **Goal:** Given a dispute case that relates to parcel shipping, we needed to validate the shipping address and determine the parcel's tracking status so we can provide more context for the review process.
 
-![[parcel-case-validation.png]]
+```mermaid
+flowchart TD
+    A([Dispute case enters]) --> B["<b>Routing agent</b><br/>evaluates carrier using historical statistics (CAPTCHA rate, anti-bot measures, page responsiveness, layout patterns)"]
+    B --> C["<b>Path A: Internal carrier API</b><br/>(fast, reliable for supported carriers)"]
+    B --> D["<b>Path B: Browser agent</b><br/>(navigates carrier website, extracts tracking status and delivery address)"]
+    C --> E("<b>Tracking status + address validation</b><br/>(normalized status returned to case record)")
+    D --> E
+```
 
 The system uses several components:
 
