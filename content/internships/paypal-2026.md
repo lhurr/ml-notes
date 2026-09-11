@@ -8,20 +8,20 @@ tags: [internship, paypal, ml-engineering]
 **Period:** Summer 2026
 
 ## What I Worked On
-Working in dispute domain, on large scale context retrieval & browser agents engineering
+I spent the summer working under the disputes domain, on large scale context retrieval & browser agents engineering
 
 ### Instant resolution context retrieval
 
 ```mermaid
 flowchart TD
-    A([New dispute case]) --> B["<b>Feature engineering</b><br/>200+ features from transaction details, behavioral signals, account age and other data sources"]
+    A(["<img src='icons/inbox.svg' width='20' height='20'/>New dispute case"]) --> B["<b>Feature engineering</b><br/>200+ features from transaction details, behavioral signals, account age and other data sources"]
     A --> N["<b>Buyer note text</b><br/>rewritten by an SLM to preserve facts and clean phrasing"]
     B --> C["<b>Embedding generation</b><br/>dense vector from a fine-tuned text embedding model"]
     N --> C
-    C --> D["<b>k-NN search with L2 distance</b><br/>across millions+ historical cases to find similar precedents"]
+    C --> D["<img src='icons/search.svg' width='20' height='20'/><b>k-NN search with L2 distance</b><br/>across millions+ historical cases to find similar precedents"]
     D --> E["<b>Neighbor aggregation</b><br/>retrieves similar resolved cases and votes"]
     E --> F["<b>Local ML model</b><br/>trained on the retrieved candidates"]
-    F --> G("<b>Resolution output</b><br/>final adjudication decision")
+    F --> G("<img src='icons/gavel.svg' width='20' height='20'/><b>Resolution output</b><br/>final adjudication decision")
     T["<b>Teammate data reasoning</b><br/>improves feature quality and context interpretation"] -.-> B
     T -.-> C
     H["<b>Clustering heuristics</b><br/>improve neighbor selection and search relevance"] -.-> D
@@ -34,9 +34,9 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A([Dispute case enters]) --> B["<b>Routing agent</b><br/>evaluates carrier using historical statistics (CAPTCHA rate, anti-bot measures, page responsiveness, layout patterns)"]
-    B --> C["<b>Path A: Internal carrier API</b><br/>(fast, reliable for supported carriers)"]
-    B --> D["<b>Path B: Browser agent</b><br/>(navigates carrier website, extracts tracking status and delivery address)"]
+    A([Dispute case enters]) --> B["<img src='icons/route.svg' width='20' height='20'/><b>Routing agent</b><br/>evaluates carrier using historical statistics (CAPTCHA rate, anti-bot measures, page responsiveness, layout patterns)"]
+    B --> C["<img src='icons/plug.svg' width='20' height='20'/><b>Path A: Internal carrier API</b><br/>(fast, reliable for supported carriers)"]
+    B --> D["<img src='icons/globe.svg' width='20' height='20'/><b>Path B: Browser agent</b><br/>(navigates carrier website, extracts tracking status and delivery address)"]
     C --> E("<b>Tracking status + address validation</b><br/>(normalized status returned to case record)")
     D --> E
 ```

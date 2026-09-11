@@ -10,12 +10,12 @@ A place to think out loud and keep a record of things I'm learning. Its mostly:
 - **Technical notes**: distilled from papers, blog posts, and open-source repositories I explored
 - **Writing**: rough thinking on ML research and systems I have been exploring
 
-I want the focus of this page to be purely about AI/machine learning: training, inference, systems, and the research behind certain concepts
+I hope for the focus of this page to be purely about AI/machine learning: training, inference, systems, and the research behind certain concepts
 
 ### What I'm working on
 
-- Scaling and building [BrandCodes](https://brandcodes.io), the infrastructure layer behind GS1 2D barcodes (raised $10k funding under NUS Enterprise, top 10% YC).
-- Research on consistency within video world models, paper publication soon!
+- Scaling and building [BrandCodes](https://brandcodes.io), the infrastructure layer behind GS1 2D barcodes (raised $10k funding under NUS Enterprise).
+- Research on 3D consistency within video world models, paper publication soon!
 
 ### Open source
 

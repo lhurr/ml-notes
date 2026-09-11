@@ -1,3 +1,9 @@
 @use "./variables.scss" as *;
 
 // put your custom CSS here!
+
+// Mermaid label icons are <img> SVGs drawn in the light-mode text color (#4e4e4e),
+// so they can't inherit the theme; flip them to roughly the dark-mode text color (#d4d4d4).
+:root[saved-theme="dark"] code.mermaid img {
+  filter: invert(1) brightness(1.2);
+}
