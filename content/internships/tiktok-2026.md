@@ -41,15 +41,13 @@ I iterated experiments across several techniques including **QLoRA** and **LoRA*
 
 ### Location Signal Retrieval Engine
 
-We discovered US local search queries had lacklustre recall due to upstream issues with the existing location-based services. I designed a **multimodal vertical-based recall engine** to resolve this, combining three recall modules:
+I designed a **multimodal vertical-based recall engine** to resolve a upstream recall issue, combining 3 recall modules:
 
 | Module | Description |
 | --- | --- |
-| Google-based recall | Leverages Google Places signals as an additional recall source |
+| Google-based recall | Leverages places signals as an additional recall source |
 | Video anchor multimodal recall | Uses multimodal signals from video anchors to surface relevant POIs |
 | Vertical places recall | Taps vertical-specific place information for finer-grained coverage |
-
-After implementation and integration, together these modules improved US query coverage by **~15%**.
 
 ### Nearline Cache Arhitecture
 
@@ -61,7 +59,7 @@ The location signals I worked on are served across 3 layers, offline, nearline a
 | **Nearline** | Milliseconds (cached) | A streaming pipeline (e.g. Kafka/Flink) continuously updates a fast cache so signals are pre-computed but recent |
 | **Online** | Milliseconds | Signals are computed live at query time |
 
-I deployed a **Kafka + Flink** nearline cache architecture to continuously ingest queries and update its location signals, serving them to the main search engine in under **250 ms** per query. After integrating the core functionality, I added a observability layer to monitor its metrics, we eventually ran A/B tests.
+I deployed a **Kafka + Flink** nearline cache architecture to continuously ingest queries and update its location signals, serving them to the main search engine in low latency. After integrating the core functionality, I added a observability layer to monitor its metrics, we eventually ran A/B tests.
 
 As a result of this nearline solution, we observed an significant increased coverage across location signals. Consequently, this had resulted in an improvement of conversion rate by **1.1%**, while also serving thousands of queries per second (QPS).
 
@@ -74,7 +72,7 @@ I proposed an idea which was to estimate whether a query has **exact** or **fuzz
 - **Exact intent**: clicks are isolated and concentrated on a single POI (e.g. users searching *"McDonald's Orchard"* almost always click the same specific outlet). The query maps reliably to one target.
 - **Fuzzy intent**: clicks are spread across many POIs (e.g. *"good coffee near me"* lands on different cafes each time). The query expresses a category or preference rather than a specific destination.
 
-Converting this into a rule-based formula, this classification feeds downstream signals with a more precise prior on what the user actually wants, allowing retrieval and ranking to weight exact-match signals more heavily for exact queries and broaden recall for fuzzy ones. Applying this across **10 regions** boosted downstream signal coverage by **14+%**.
+Converting this into a rule-based formula, this classification feeds downstream signals with a more precise prior on what the user actually wants, allowing retrieval and ranking to weight exact-match signals more heavily for exact queries and broaden recall for fuzzy ones. This boosted downstream signal coverage by **10+%**.
 
 ### Anchor Search with Multilingual BERT
 
@@ -84,4 +82,3 @@ In contrast to the SLM in the nearline layer, it can afford to be **listwise** i
 
 At query time, anchor search runs **online**, which meant every millisecond mattered. A **pointwise** model scores each candidate independently, which means it can run in parallel across candidates and its latency stays constant regardless of list size. The cost is that it cannot compare candidates against each other directly, but for NER and first-pass ranking this is an acceptable trade-off.
 
-I distilled and fine-tuned multilingual BERT for this role, achieving **89% anchor search accuracy**.
