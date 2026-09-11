@@ -63,7 +63,7 @@ The location signals I worked on are served across 3 layers, offline, nearline a
 
 I deployed a **Kafka + Flink** nearline cache architecture to continuously ingest queries and update its location signals, serving them to the main search engine in under **250 ms** per query. After integrating the core functionality, I added a observability layer to monitor its metrics, we eventually ran A/B tests.
 
-As a result of this nearline solution, we observed an increased coverage of 12% for location signals. Consequently, this had resulted in an improvement of conversion rate by **1.1%**, while also serving 8,000+ queries per second (QPS).
+As a result of this nearline solution, we observed an significant increased coverage across location signals. Consequently, this had resulted in an improvement of conversion rate by **1.1%**, while also serving thousands of queries per second (QPS).
 
 ### Data Engineering ETL Expansion
 
