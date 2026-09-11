@@ -78,7 +78,7 @@ Converting this into a rule-based formula, this classification feeds downstream 
 
 ### Anchor Search with Multilingual BERT
 
-To serve location signals in real-time, Small Language Models are not feasible as they take too long. I distilled and tuned a **BERT** model for named entity recognition and pointwise re-ranking, to serve 5 regions.
+To serve location signals in real-time, Small Language Models are not feasible as they take too long. I distilled and tuned a **BERT** model for named entity recognition and pointwise re-ranking, to serve multiple regions.
 
 In contrast to the SLM in the nearline layer, it can afford to be **listwise** in POI matching stage as it receives the full candidate list and scores items relative to one another, capturing inter-candidate dependencies. This is more expressive but requires encoding all candidates together, making latency grow with list size.
 
