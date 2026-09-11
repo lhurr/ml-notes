@@ -32,7 +32,7 @@ flowchart TD
     H -.-> E
 ```
 
-Components:
+## Components:
 
 **Case representation:** Each case combines two inputs.
 The first is a set of 200+ engineered features drawn from transaction details, behavioral signals, account signals, etc.
@@ -55,7 +55,7 @@ $$\text{score}_i = \text{sim}_i \cdot e^{-\lambda \Delta t_i}$$
 
 The decay rate $\lambda$ controls how quickly older disputes lose influence.
 
-**In-context learning:** After retrieving the top $k$ candidates, I developed and trained an ensemble of classical ML models on the retrieved candidates to produce the final decision.
+**In-context learning:** After retrieving the top $k$ candidates, I developed and trained an ensemble of classical ML models (LightGBM, XGB, etc) on the retrieved candidates to produce the final decision. This can be thought of as a test-time training/in-context learning approach.
 
 **Improving retrieval quality:** I also researched and applied clustering heuristics on past teammate domain knowledge to refine which neighbors are selected and improve search relevance.
 
