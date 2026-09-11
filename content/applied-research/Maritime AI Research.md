@@ -24,11 +24,15 @@ ConvBERT replaces a subset of standard self-attention heads with **span-based dy
 
 Standard scaled dot-product attention over the full sequence:
 
-$$\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V$$
+$$
+\text{Attention}(Q, K, V) = \text{softmax}\!\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$
 
 where $Q = XW^Q$, $K = XW^K$, $V = XW^V$. Each global head $i$ computes:
 
-$$\text{head}_i = \text{Attention}(XW_i^Q,\, XW_i^K,\, XW_i^V)$$
+$$
+\text{head}_i = \text{Attention}(XW_i^Q,\, XW_i^K,\, XW_i^V)
+$$
 
 **Step 2: Span-Based Dynamic Convolution (local heads)**
 
@@ -36,11 +40,15 @@ Instead of attending to the full sequence, each token only looks at a **local wi
 
 The attention weights over that window are computed from the token's own query $\mathbf{q}_i$, making the kernel **dynamic**: two different tokens will produce different weights even over the same span of text:
 
-$$\hat{A}_i = \text{softmax}\!\left(\frac{\mathbf{q}_i\, K_{[i-w:i+w]}^\top}{\sqrt{d_k}}\right)$$
+$$
+\hat{A}_i = \text{softmax}\!\left(\frac{\mathbf{q}_i\, K_{[i-w:i+w]}^\top}{\sqrt{d_k}}\right)
+$$
 
 The output is then a weighted sum of the local values using those weights:
 
-$$\text{SpanConv}(X)_i = \hat{A}_i\, V_{[i-w:i+w]}$$
+$$
+\text{SpanConv}(X)_i = \hat{A}_i\, V_{[i-w:i+w]}
+$$
 
 The key payoff over full self-attention: complexity drops from $O(n^2)$ to $O(n \cdot w)$, since each token interacts with only $2w+1$ neighbours instead of all $n$ tokens.
 
@@ -48,17 +56,23 @@ The key payoff over full self-attention: complexity drops from $O(n^2)$ to $O(n 
 
 Global and span heads are concatenated and projected:
 
-$$\text{MixedAttn}(X) = \text{Concat}\!\left(\text{head}_1,\,\ldots,\,\text{head}_g,\;\text{SpanConv}_1,\,\ldots,\,\text{SpanConv}_s\right)W^O$$
+$$
+\text{MixedAttn}(X) = \text{Concat}\!\left(\text{head}_1,\,\ldots,\,\text{head}_g,\;\text{SpanConv}_1,\,\ldots,\,\text{SpanConv}_s\right)W^O
+$$
 
 ### Pre-training & fine-tuning
 1. ConvBERT is pre-trained using masked language modelling. 
 2. E.g The cat sat on the [MASK], and the ground truth is *car*, then the loss is 
 
-$$\mathcal{L}_{\text{MLM}} = -\log P(w_{\text{true}} \mid \tilde{X})$$
+$$
+\mathcal{L}_{\text{MLM}} = -\log P(w_{\text{true}} \mid \tilde{X})
+$$
 
 More generally, the loss is averaged over all masked positions $\mathcal{M}$ in the sequence:
 
-$$\mathcal{L}_{\text{MLM}} = -\frac{1}{|\mathcal{M}|} \sum_{i \in \mathcal{M}} \log P(w_i \mid \tilde{X})$$
+$$
+\mathcal{L}_{\text{MLM}} = -\frac{1}{|\mathcal{M}|} \sum_{i \in \mathcal{M}} \log P(w_i \mid \tilde{X})
+$$
 
 where $P(w_i \mid \tilde{X})$ is the softmax probability assigned to the true token $w_i$ at masked position $i$, and $\tilde{X}$ is the corrupted input sequence.
 

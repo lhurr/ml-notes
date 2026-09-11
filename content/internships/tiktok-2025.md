@@ -17,7 +17,9 @@ To scale down 2,000+ video features for rapid dataset rollout, I applied an open
 
 The objective is to select a subset $S$ of $k$ features that jointly maximizes relevance to the target while minimizing pairwise redundancy:
 
-$$\max_{x_i \notin S} \left[ I(x_i;\, y) - \frac{1}{|S|} \sum_{x_j \in S} I(x_i;\, x_j) \right]$$
+$$
+\max_{x_i \notin S} \left[ I(x_i;\, y) - \frac{1}{|S|} \sum_{x_j \in S} I(x_i;\, x_j) \right]
+$$
 
 **Algorithm (greedy):**
 

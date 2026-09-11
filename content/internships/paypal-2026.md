@@ -36,28 +36,34 @@ flowchart TD
 
 **Case representation:** Each case combines two inputs.
 The first is a set of 200+ engineered features drawn from transaction details, behavioral signals, account signals, etc.
-Next, we also use the buyer free-text note, which is often noisy, with typos, and contain spam texts. I leveraged a Small Language Model (Gemma 3) to 1. rewrite each note to keep the facts and 2. filter buyer note text that do not provide concrete value
+Next, we also use the buyer free-text note, which is often noisy, with typos, and contain spam texts. I leveraged a Small Language Model (Gemma 4) to `1.` rewrite each note to keep the facts and `2.` filter buyer note text that do not provide concrete value/
 
 **Embedding generation:** Each case ends up with two vectors: a structured vector $q_s$ built from the engineered features, and a text embedding $q_t$ of the buyer note from a text embedding model.
 
 **k-NN search:** Given a new case, we search across millions of historical resolved cases, using a different metric for each vector.
 Structured features are matched by L2 distance:
 
-$$d(q_s, x_s) = \lVert q_s - x_s \rVert_2 = \sqrt{\sum_{i} (q_{s,i} - x_{s,i})^2}$$
+$$
+d(q_s, x_s) = \lVert q_s - x_s \rVert_2 = \sqrt{\sum_{i} (q_{s,i} - x_{s,i})^2}
+$$
 
 Buyer notes are matched by cosine similarity:
 
-$$\text{sim}(q_t, x_t) = \frac{q_t \cdot x_t}{\lVert q_t \rVert \, \lVert x_t \rVert}$$
+$$
+\text{sim}(q_t, x_t) = \frac{q_t \cdot x_t}{\lVert q_t \rVert \, \lVert x_t \rVert}
+$$
 
 **Recency decay weighting:** To account for the fact that an older dispute may be less useful in adjudicating a new dispute, each retrieved neighbor $i$ has its similarity score decayed exponentially by the number of days since it was resolved, $\Delta t_i$:
 
-$$\text{score}_i = \text{sim}_i \cdot e^{-\lambda \Delta t_i}$$
+$$
+\text{score}_i = \text{sim}_i \cdot e^{-\lambda \Delta t_i}
+$$
 
 The decay rate $\lambda$ controls how quickly older disputes lose influence.
 
 **In-context learning:** After retrieving the top $k$ candidates, I developed and trained an ensemble of classical ML models (LightGBM, XGB, etc) on the retrieved candidates to produce the final decision. This can be thought of as a test-time training/in-context learning approach.
 
-**Improving retrieval quality:** I also researched and applied clustering heuristics on past teammate domain knowledge to refine which neighbors are selected and improve search relevance.
+**Improving retrieval quality:** I also researched and applied clustering heuristics on past teammate domain knowledge to refine which neighbors are selected and improve search relevance. These clusters contained condense knowledge across millions of past reasoning traces from teammates while they were processing the dispute cases.
 
 **Data engineering:** Due to the diversity of INR cases, they tend to contain many outliers, including high-risk disputes and disputes with unusually large amounts, which made them poor candidates for instant resolution.
 Through analysis and ablation testing, I set a threshold on the score from an online model and used it to filter these disputes out before retrieval. This helped keep the candidate pool clean and representative of the disputes seen at test time.
