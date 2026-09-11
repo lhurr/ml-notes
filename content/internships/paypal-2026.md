@@ -12,7 +12,21 @@ Working in dispute domain, on large scale context retrieval & browser agents eng
 
 ### Instant resolution context retrieval
 
-
+```mermaid
+flowchart TD
+    A([New dispute case]) --> B["<b>Feature engineering</b><br/>200+ features from transaction details, behavioral signals, account age and other data sources"]
+    A --> N["<b>Buyer note text</b><br/>rewritten by an SLM to preserve facts and clean phrasing"]
+    B --> C["<b>Embedding generation</b><br/>dense vector from a fine-tuned text embedding model"]
+    N --> C
+    C --> D["<b>k-NN search with L2 distance</b><br/>across millions+ historical cases to find similar precedents"]
+    D --> E["<b>Neighbor aggregation</b><br/>retrieves similar resolved cases and votes"]
+    E --> F["<b>Local ML model</b><br/>trained on the retrieved candidates"]
+    F --> G("<b>Resolution output</b><br/>final adjudication decision")
+    T["<b>Teammate data reasoning</b><br/>improves feature quality and context interpretation"] -.-> B
+    T -.-> C
+    H["<b>Clustering heuristics</b><br/>improve neighbor selection and search relevance"] -.-> D
+    H -.-> E
+```
 
 ### Agents for parcel case validation
 
