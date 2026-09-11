@@ -14,7 +14,6 @@ I hope for the focus of this page to be purely about AI/machine learning: traini
 
 ### What I'm working on
 
-- Scaling and building [BrandCodes](https://brandcodes.io), the infrastructure layer behind GS1 2D barcodes (raised $10k funding under NUS Enterprise).
 - Research on 3D consistency within video world models, paper publication soon!
 
 ### Open source
