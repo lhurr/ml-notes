@@ -5,6 +5,7 @@ tags:
   - nlp
   - maritime
   - agentic-ai
+draft: true
 ---
 
 ## Motivation and reflection
