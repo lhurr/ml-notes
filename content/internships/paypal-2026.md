@@ -14,7 +14,7 @@ I spent the summer working under the disputes domain, on large scale context ret
 
 **Goal:** When a new dispute comes in, we want to instantly recommend a resolution right away based on how similar cases were decided in the past. The 2 main types of dispute I dealt with were Item Not Received (INR) & Significantly Not As Described (SNAD).
 
-I helped build a system that encodes each case as a high-dimensional embedding, then searches across historical resolved cases to find the closest matches. The adjudication decisions from those neighbors are aggregated to produce a resolution recommendation for the new dispute.
+I helped build a system that encodes each case as a embedding vector, then searches across historical resolved cases to find the closest matches. The adjudication decisions from those neighbors are aggregated to produce a resolution recommendation for the new dispute.
 
 ```mermaid
 flowchart TD
@@ -49,6 +49,12 @@ Buyer notes are matched by cosine similarity:
 
 $$\text{sim}(q_t, x_t) = \frac{q_t \cdot x_t}{\lVert q_t \rVert \, \lVert x_t \rVert}$$
 
+**Recency decay weighting:** To account for the fact that an older dispute may be less useful in adjudicating a new dispute, each retrieved neighbor $i$ has its similarity score decayed exponentially by the number of days since it was resolved, $\Delta t_i$:
+
+$$\text{score}_i = \text{sim}_i \cdot e^{-\lambda \Delta t_i}$$
+
+The decay rate $\lambda$ controls how quickly older disputes lose influence.
+
 **In-context learning:** After retrieving the top $k$ candidates, I developed and trained an ensemble of classical ML models on the retrieved candidates to produce the final decision.
 
 **Improving retrieval quality:** I also researched and applied clustering heuristics on past teammate domain knowledge to refine which neighbors are selected and improve search relevance.
@@ -56,7 +62,7 @@ $$\text{sim}(q_t, x_t) = \frac{q_t \cdot x_t}{\lVert q_t \rVert \, \lVert x_t \r
 **Data engineering:** Due to the diversity of INR cases, they tend to contain many outliers, including high-risk disputes and disputes with unusually large amounts, which made them poor candidates for instant resolution.
 Through analysis and ablation testing, I set a threshold on the score from an online model and used it to filter these disputes out before retrieval. This helped keep the candidate pool clean and representative of the disputes seen at test time.
 
-**Metrics and impact:** The system reached 83%+ precision at an operating point of 12%+, while keeping the cost per case under \$6.
+**Metrics and impact:** The system reached 91%+ precision at an operating point of 12%+, while keeping the cost per case under \$6.
 As a result, the improvements increased coverage of online cases by about 2.5x, reaching cases that the existing instant resolution solution could not handle.
 
 ### Agents for parcel case validation
