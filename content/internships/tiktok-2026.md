@@ -43,11 +43,11 @@ I trained the models using a **8x NVIDIA GPU cluster** using **ZeRO optimization
 | Stage 2 | Optimizer states + gradients |
 | Stage 3 | Optimizer states + gradients + model parameters |
 
-This freed up GPU memory for larger per-device batch sizes and longer sequences, which shortened each distillation and GRPO iteration.
+This freed up GPU memory for larger per-device batch sizes and longer sequences, which shortened each distillation and GRPO iteration. To save memory, I used **bf16 mixed precision**, which roughly halves activation memory and runs matmuls on the GPU's tensor cores, while keeping fp32's dynamic range so no loss scaling was needed.
 
 I also brainstormed and applied novel data augmentations to compact and transform the training data, reducing deployment resource requirements and simplifying the inference scenario for the model. Initially, this required 4 models for this complex task, I managed to reframe and review the problem in an unorthodox way, and eventually I produced a unified single model after repeated improvement iterations.
 
-I iterated experiments across several techniques including **QLoRA** and **LoRA**, ultimately achieving 94% precision/recall.
+To further squeeze performance and efficiency, I experimented with parameter efficient fine tuning techniques such as **LoRA** and **QLoRA**. Afterwards, I evaluated each checkpoint with **vLLM**, whose PagedAttention and continuous batching made batch scoring on the golden set fast enough to compare many runs. Eventually, after many rounds of optimization and performance measurements, the final model achieved **~94% precision/recall**.
 
 ### Location Signal Retrieval Engine
 
