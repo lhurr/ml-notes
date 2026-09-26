@@ -9,7 +9,7 @@ tags: [internship, tiktok, ml-engineering, search, nlp]
 
 ## What I Worked On
 
-I interned at TikTok Search team during 2026 spring. I primarily worked on serving and scaling location signals to the search engine for downstream retrieval and ranking. I used C++ and Python.
+I interned at TikTok Search team during 2026 spring. I primarily worked on serving and scaling location signals to the search engine for downstream retrieval and ranking. I primarily used C++ and Python.
 
 ### Optimising Small Language Models (SLM) for local search
 
@@ -32,7 +32,8 @@ flowchart LR
 2. **Recall**: retrieve a list of candidate POIs and their metadata using location-based and vertical recall
 3. **Listwise matching**: select the single POI that best matches the original query
 
-To enable resource-efficient serving, I first gathered millions of search logs, labelled using a larger LLM, then applied **model distillation** fine-tuning along with **GRPO** post-training to optimize the small language model.
+To enable resource-efficient serving, I first gathered millions of search logs and labelled them using a larger LLM. Since annotation was I/O-bound, I parallelized it with **multithreading** to keep many requests in flight at once. I then applied **model distillation** Supervised Fine Tuning along with **GRPO** post-training to optimize the small language model.
+
 For GRPO, I designed the reward function to grade the quality of each JSON response and its adherence to the required schema and output format, reinforcing outputs that were both accurate and reliably serializable.
 
 I trained the models using a **8x NVIDIA GPU cluster** using **ZeRO optimization**. Instead of duplicating the optimizer states, gradients and parameters on every GPU, ZeRO (Zero Redundancy Optimizer) partitions them across the 8 GPUs:
@@ -43,7 +44,7 @@ I trained the models using a **8x NVIDIA GPU cluster** using **ZeRO optimization
 | Stage 2 | Optimizer states + gradients |
 | Stage 3 | Optimizer states + gradients + model parameters |
 
-This freed up GPU memory for larger per-device batch sizes and longer sequences, which shortened each distillation and GRPO iteration. To save memory, I used **bf16 mixed precision**, which roughly halves activation memory and runs matmuls on the GPU's tensor cores, while keeping fp32's dynamic range so no loss scaling was needed.
+This freed up GPU memory for larger per device batch sizes and longer sequences, which shortened each distillation and GRPO iteration. To save memory, I used **bf16 mixed precision**, which roughly halves activation memory and runs matmuls on the GPU's tensor cores, while keeping fp32's dynamic range so no loss scaling was needed.
 
 I also brainstormed and applied novel data augmentations to compact and transform the training data, reducing deployment resource requirements and simplifying the inference scenario for the model. Initially, this required 4 models for this complex task, I managed to reframe and review the problem in an unorthodox way, and eventually I produced a unified single model after repeated improvement iterations.
 
@@ -69,7 +70,7 @@ The location signals I worked on are served across 3 layers, offline, nearline a
 | **Nearline** | Milliseconds (cached) | A streaming pipeline (e.g. Kafka/Flink) continuously updates a fast cache so signals are pre-computed but recent |
 | **Online** | Milliseconds | Signals are computed live at query time |
 
-I deployed a **Kafka + Flink** nearline cache architecture to continuously ingest queries and update its location signals, serving them to the main search engine in low latency. After integrating the core functionality, I added a observability layer to monitor its metrics, we eventually ran A/B tests.
+I deployed a **Kafka & Flink** nearline cache architecture to continuously ingest queries and update its location signals, serving them to the main search engine in low latency. After integrating the core functionality, I added a observability layer to monitor its metrics (throughput, cache hit rate, latency, etc).
 
 As a result of this nearline solution, we observed an significant increased coverage across location signals. Consequently, this had resulted in an improvement of conversion rate by **1.1%**, while also serving thousands of queries per second (QPS).
 
@@ -82,11 +83,11 @@ I proposed an idea which was to estimate whether a query has **exact** or **fuzz
 - **Exact intent**: clicks are isolated and concentrated on a single POI (e.g. users searching *"McDonald's Orchard"* almost always click the same specific outlet). The query maps reliably to one target.
 - **Fuzzy intent**: clicks are spread across many POIs (e.g. *"good coffee near me"* lands on different cafes each time). The query expresses a category or preference rather than a specific destination.
 
-Converting this into a rule-based formula, this classification feeds downstream signals with a more precise prior on what the user actually wants, allowing retrieval and ranking to weight exact-match signals more heavily for exact queries and broaden recall for fuzzy ones. This boosted downstream signal coverage by **10+%**.
+Converting this into a rule based formula, this classification feeds downstream signals with a more precise prior on what the user actually wants, allowing retrieval and ranking to weight exact-match signals more heavily for exact queries and broaden recall for fuzzy ones. This boosted downstream signal coverage by **10+%**.
 
 ### Anchor Search with Multilingual BERT
 
-To serve location signals in real-time, Small Language Models are not feasible as they take too long. I distilled and tuned a **BERT** model for named entity recognition and pointwise re-ranking, to serve multiple regions.
+To serve location signals in real-time, Small Language Models are not feasible as they take too long. To tackle this, I distilled and tuned a **BERT** model for named entity recognition and pointwise re-ranking, to serve multiple regions.
 
 In contrast to the SLM in the nearline layer, it can afford to be **listwise** in POI matching stage as it receives the full candidate list and scores items relative to one another, capturing inter-candidate dependencies. This is more expressive but requires encoding all candidates together, making latency grow with list size.
 
