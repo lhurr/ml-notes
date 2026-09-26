@@ -76,7 +76,7 @@ As a result of this nearline solution, we observed an significant increased cove
 
 ### Data Engineering ETL Expansion
 
-We had an existing ETL pipeline (built with **Spark/Hive/RPC** technologies) that lacked sufficient query intent coverage across many regions, limiting how well downstream retrieval and ranking could serve local queries. I enhanced it by injecting **posterior data**, which included click behaviour derived from historical search sessions.
+We had an existing ETL pipeline, using **Spark** and **Hive** for data processing alongside separate internal RPC services. It lacked sufficient query intent coverage across many regions. This limited how well downstream retrieval and ranking could serve local queries. To fix this, I enhanced it with **posterior signals** aggregated from user click behaviour in historical search sessions.
 
 I proposed an idea which was to estimate whether a query has **exact** or **fuzzy** intent by looking at how concentrated its clicks are:
 
