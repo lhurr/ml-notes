@@ -2,19 +2,19 @@
 title: Welcome
 ---
 
-Hi, I'm **Lim Hur**, a machine learning engineer based in Singapore.
+Hi, I'm **Lim Hur**, a software engineer based in Singapore!
 
 A place to think out loud and keep a record of things I'm learning. Its mostly:
 
 - **Machine learning experiences**: what I worked on, what surprised me, my learnings and takeaways
 - **Technical notes**: distilled from papers, blog posts, and open-source repositories I explored
-- **Writing**: rough thinking on ML research and systems I have been exploring
+- **Writing**: rough thinking on software/ML systems I have been exploring
 
 I hope for the focus of this page to be purely about AI/machine learning: training, inference, systems, and the research behind certain concepts
 
 ### What I'm working on
 
-- Research on 3D consistency within video world models, paper publication soon!
+- Research on 3D consistency within video world models, submitting to ICLR '27!
 
 ### Open source
 

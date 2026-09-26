@@ -32,8 +32,18 @@ flowchart LR
 2. **Recall**: retrieve a list of candidate POIs and their metadata using location-based and vertical recall
 3. **Listwise matching**: select the single POI that best matches the original query
 
-To enable resource-efficient serving, I first gathered millions of search logs, labelled using a larger LLM, then applied **model distillation** fine-tuning along with **GRPO** post-training to optimize a 1B parameter model.
+To enable resource-efficient serving, I first gathered millions of search logs, labelled using a larger LLM, then applied **model distillation** fine-tuning along with **GRPO** post-training to optimize the small language model.
 For GRPO, I designed the reward function to grade the quality of each JSON response and its adherence to the required schema and output format, reinforcing outputs that were both accurate and reliably serializable.
+
+I trained the models using a **8x NVIDIA GPU cluster** using **ZeRO optimization**. Instead of duplicating the optimizer states, gradients and parameters on every GPU, ZeRO (Zero Redundancy Optimizer) partitions them across the 8 GPUs:
+
+| ZeRO stage | What is sharded across GPUs |
+| --- | --- |
+| Stage 1 | Optimizer states (e.g. Adam momentum and variance) |
+| Stage 2 | Optimizer states + gradients |
+| Stage 3 | Optimizer states + gradients + model parameters |
+
+This freed up GPU memory for larger per-device batch sizes and longer sequences, which shortened each distillation and GRPO iteration.
 
 I also brainstormed and applied novel data augmentations to compact and transform the training data, reducing deployment resource requirements and simplifying the inference scenario for the model. Initially, this required 4 models for this complex task, I managed to reframe and review the problem in an unorthodox way, and eventually I produced a unified single model after repeated improvement iterations.
 
