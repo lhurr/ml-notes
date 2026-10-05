@@ -4,27 +4,22 @@ title: Welcome
 
 Hi, I'm **Lim Hur**, a software engineer based in Singapore!
 
-A place to think out loud and keep a record of things I'm learning. Its mostly:
+This is a place to keep track of what I'm learning. Its mostly:
 
-- **Machine learning experiences**: what I worked on, what surprised me, my learnings and takeaways
+- **Machine learning experiences**: what I worked on, have been studying and my learnings and takeaways
 - **Technical notes**: distilled from papers, blog posts, and open-source repositories I explored
-- **Writing**: rough thinking on software/ML systems I have been exploring
+- **Writing**: rough thinking on interesting software systems I have been reading
 
-I hope for the focus of this page to be purely about AI/machine learning: training, inference, systems, and the research behind certain concepts
-
-### What I'm working on
-
-- Research on 3D consistency within video world models, submitting to ICLR '27!
-
-### Open source
+### Open source & research
 
 - [WRBench](https://github.com/JinPLu/WRBench): camera-controlled generation and diagnostic evaluation of video world models
+- Research on 3D consistency within video world models, submitted to ICLR '27!
 
 ### Hackathons
 
 - **OpenAI x Sea Hackathon '26**: Top 5 - [swarm of agent shoppers](https://github.com/choiwab/synth-shoppers) to validate your new product listing on Shopee
-- **SingHacks '25**: Champions, $5k - [decentralized AI marketplace](https://github.com/ProvidAI/SynapticaWeb) facilitating x402 micropayments and smart contract verification
-- **Hedera Hackathon '25**: Winners, $1k - DeSci mutli-agent platform with A2A settlement
+- **SingHacks '25**: Champions - [decentralized AI marketplace](https://github.com/ProvidAI/SynapticaWeb) facilitating x402 micropayments and smart contract verification
+- **Hedera Hackathon '25**: Winners - DeSci mutli-agent platform with A2A settlement
 
 <div style="display:flex; flex-wrap:wrap; gap:1.5rem; align-items:center; margin-top:0.5rem;">
 
