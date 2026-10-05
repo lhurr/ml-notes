@@ -14,7 +14,7 @@ I spent the summer working under the disputes domain, on large scale context ret
 
 **Goal:** When a new dispute comes in, we want to instantly recommend a resolution right away based on how similar cases were decided in the past. The 2 main types of dispute I dealt with were Item Not Received (INR) & Significantly Not As Described (SNAD).
 
-I helped build a system that encodes each case as a embedding vector, then searches across historical resolved cases to find the closest matches. The adjudication decisions from those neighbors are aggregated to produce a resolution recommendation for the new dispute.
+I helped built a context retrieval system that searches across historical resolved cases to find the closest matches. The adjudication decisions from those neighbors are aggregated to produce a resolution recommendation for the new dispute.
 
 ```mermaid
 flowchart TD
@@ -32,15 +32,13 @@ flowchart TD
     H -.-> E
 ```
 
-## Components:
+## Achievements:
 
-**Case representation:** Each case combines two inputs.
-The first is a set of 200+ engineered features drawn from transaction details, behavioral signals, account signals, etc.
-Next, we also use the buyer free-text note, which is often noisy, with typos, and contain spam texts. I leveraged a Small Language Model to `1.` rewrite each note to keep the facts and `2.` filter buyer note text that do not provide concrete value/
+**Case representation:** I engineered a set of 200+ engineered features drawn from transaction details, behavioral signals, account signals, etc. Next, I also used the buyer free-text note, which is often noisy, with typos, and contain spam texts. To enable a cleaner embedding representation, I leveraged a Small Language Model to `1.` rewrite each note to keep the facts and `2.` filter buyer note text that do not provide concrete value/
 
 **Embedding generation:** Each case ends up with two vectors: a structured vector $q_s$ built from the engineered features, and a text embedding $q_t$ of the buyer note from a text embedding model.
 
-**k-NN search:** Given a new case, we search across millions of historical resolved cases, using a different metric for each vector.
+**k-NN search:** A case is searched across millions of historical resolved cases.
 
 **Recency decay weighting:** To account for the fact that an older dispute may be less useful in adjudicating a new dispute, each retrieved neighbor $i$ has its similarity score decayed exponentially by the number of days since it was resolved.
 
@@ -59,7 +57,7 @@ As a result, the improvements increased coverage of online cases by about 2.5x, 
 **Goal:** Given a dispute case that relates to parcel shipping, we needed to validate the shipping address and determine the parcel's tracking status so we can provide more context for the review process.
 
 
-The system uses several components:
+#### Agents:
 
 **Routing agent:** I worked on a routing agent that decides how to fetch tracking status for a given case, choosing between an internal carrier API and the browser agent. The problem was that the API could not cover certain carriers, and the browser agent could not operate on some carriers, so both of them are needed for improved coverage.
 
