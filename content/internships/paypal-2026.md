@@ -18,14 +18,14 @@ I helped build a system that encodes each case as a embedding vector, then searc
 
 ```mermaid
 flowchart TD
-    A(["<img src='icons/inbox.svg' width='20' height='20'/>New dispute case"]) --> B["<b>Feature engineering</b><br/>200+ features from transaction details, behavioral signals, account age and other data sources"]
+    A(["New dispute case"]) --> B["<b>Feature engineering</b><br/>200+ features from transaction details, behavioral signals, account age and other data sources"]
     A --> N["<b>Buyer note text</b><br/>rewritten by an SLM to preserve facts and clean phrasing"]
     B --> C["<b>Embedding generation</b><br/>dense vector from a fine-tuned text embedding model"]
     N --> C
-    C --> D["<img src='icons/search.svg' width='20' height='20'/><b>k-NN search</b><br/>L2 on structured features, similarity search on note text, across millions+ historical cases to find similar precedents"]
+    C --> D["<b>k-NN search</b><br/>L2 on structured features, similarity search on note text, across millions+ historical cases to find similar precedents"]
     D --> E["<b>Neighbor aggregation</b><br/>retrieves similar resolved cases and votes"]
     E --> F["<b>Local ML model</b><br/>trained on the retrieved candidates"]
-    F --> G("<img src='icons/gavel.svg' width='20' height='20'/><b>Resolution output</b><br/>final adjudication decision")
+    F --> G("<b>Resolution output</b><br/>final adjudication decision")
     T["<b>Teammate data reasoning</b><br/>improves feature quality and context interpretation"] -.-> B
     T -.-> C
     H["<b>Clustering heuristics</b><br/>improve neighbor selection and search relevance"] -.-> D
@@ -69,4 +69,4 @@ To ensure routing works effectively, I proposed that we used historical dispute 
 
 **Self-learning:** When a routing decision turns out to be wrong (for example, the chosen path fails to return a valid status), the wrong outcome is fed back into the routing agent so future routing improves without manual tuning.
 
-**Metrics**: The system achieved an overall accuracy of 76%, with the capability to process up to 17k+ parcel shipping disputes weekly, greatly alleviating manual and repetitive work. Furthermore, this framework would be extended to other domains beyond disputes, which greatly strengthens its utility.
+**Metrics**: The system achieved an overall accuracy of 75+%, with the capability to process up to 17k+ parcel shipping disputes weekly, greatly alleviating manual and repetitive work. Furthermore, this framework would be extended to other domains beyond disputes, which greatly strengthens its utility.
