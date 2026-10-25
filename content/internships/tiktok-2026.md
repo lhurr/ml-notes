@@ -80,7 +80,7 @@ We had an existing ETL pipeline, using **Spark** and **Hive** for data processin
 
 I proposed an idea which was to estimate whether a query has **exact** or **fuzzy** intent by looking at how concentrated its clicks are:
 
-- **Exact intent**: clicks are isolated and concentrated on a single POI (e.g. users searching *"McDonald's Orchard"* almost always click the same specific outlet). The query maps reliably to one target.
+- **Exact intent**: clicks are isolated and concentrated on a single POI (e.g. users searching *"McDonald's Orchard"* almost always click the same specific outlet). The query maps very clearly to one specific target.
 - **Fuzzy intent**: clicks are spread across many POIs (e.g. *"good coffee near me"* lands on different cafes each time). The query expresses a category or preference rather than a specific destination.
 
 Converting this into a rule based formula, this classification feeds downstream signals with a more precise prior on what the user actually wants, allowing retrieval and ranking to weight exact-match signals more heavily for exact queries and broaden recall for fuzzy ones. This boosted downstream signal coverage by **10+%**.

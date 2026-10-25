@@ -13,7 +13,7 @@ This is a place to keep track of what I'm learning. Its mostly:
 ### Open source & research
 
 - [WRBench](https://github.com/JinPLu/WRBench): camera-controlled generation and diagnostic evaluation of video world models
-- Research on 3D consistency within video world models, submitted to ICLR '27!
+- [Orbia](https://orbia-bench.github.io/): 3rd author, benchmark for 3D consistency within video world models, submitted to ICLR 2027!
 
 ### Hackathons
 

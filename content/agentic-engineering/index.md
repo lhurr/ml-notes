@@ -8,18 +8,17 @@ tags:
 
 Notes on how I work with coding agents day to day.
 
-My setup splits based on how long / much effort is needed to complete the task. Long tasks get an autonomous loop that grinds overnight, while short tasks get a well-equipped single session where most of the effort goes into feeding the agent the right context cheaply.
+My setup splits based on how long / much effort is needed to complete the task. This means long tasks get an autonomous loop that grinds overnight, while short tasks get a well-equipped single session where most of the effort goes into feeding the agent the right context cheaply.
 
-**Model:** GPT 5.6 Sol/ Claude Opus 4.8
+**Model:** GPT 6/ Claude Opus 5.5
 
 ## Long tasks
 
-For anything open-ended (optimise this, sweep these ideas, improve this metric), I run [gnhf](https://github.com/kunchenguid/gnhf).
-It is a autoresearch-style orchestrator that keeps agents running while I literally sleep.
+For anything open-ended (optimise this, sweep X ideas, improve this metric), I run [gnhf](https://github.com/kunchenguid/gnhf).
+It is a autoresearch style orchestrator that keeps agents running while I literally sleep!
 
 It packages [Karpathy's autoresearch](https://github.com/karpathy/autoresearch) pattern so it can point at any project.
-The loop is the whole idea: read the code, propose one small change, run it, measure, commit if better, roll back if worse, repeat.
-Each successful iteration lands as its own git commit, so in the morning I get a branch I can cherry-pick from and a log of every attempt including the failures.
+The loop is the whole idea: read the code, propose one small change, run it, measure, commit if better, roll back if worse, repeat. A good thing is that each successful iteration lands as its own git commit, so in the morning I can get a branch I can cherry-pick from and a log of every attempt including the failures.
 
 
 ## Short tasks
@@ -61,7 +60,7 @@ I run [no-mistakes](https://github.com/kunchenguid/no-mistakes) which is a local
 The pipeline is fixed and opinionated: intent, rebase, review, test, document, lint, push, PR, CI.
 
 **Git worktrees**
-I ocassionally spawn git worktrees for multiple agents tow ork in parallel too. To do that, I keep a reusable `.sh` script that agents invoke themselves to create the worktree and bring the environment up with it, provisioning the database, pulling secrets and setting up the runtime in one command.
+I ocassionally spin some git worktrees for multiple agents tow ork in parallel too. To do that, I keep a reusable `.sh` script that agents invoke themselves to create the worktree and bring the environment up with it, provisioning the database, pulling secrets and setting up the runtime in one command.
 
 
 ## References

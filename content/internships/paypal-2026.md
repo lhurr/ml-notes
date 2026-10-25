@@ -8,13 +8,13 @@ tags: [internship, paypal, ml-engineering]
 **Period:** Summer 2026
 
 ## What I Worked On
-I spent the summer working under the disputes domain, on large scale context retrieval & browser agents engineering
+I spent the summer working on large scale context retrieval & browser agents engineering in the disputes domain.
 
 ### Instant resolution context retrieval
 
-**Goal:** When a new dispute comes in, we want to instantly recommend a resolution right away based on how similar cases were decided in the past. The 2 main types of dispute I dealt with were Item Not Received (INR) & Significantly Not As Described (SNAD).
+**Concept:** When a new dispute comes in, we want to instantly recommend a resolution right away based on how similar cases were decided in the past. The 2 main types of dispute I dealt with were Item Not Received (INR) & Significantly Not As Described (SNAD).
 
-I helped built a context retrieval system that searches across historical resolved cases to find the closest matches. The adjudication decisions from those neighbors are aggregated to produce a resolution recommendation for the new dispute.
+I helped built a context retrieval system that searches across historical resolved cases to find the closest matches. An adjudication decision is derived from the aggregation of the case's nearest neighbors to produce a resolution recommendation.
 
 ```mermaid
 flowchart TD
@@ -34,7 +34,7 @@ flowchart TD
 
 ## Achievements:
 
-**Case representation:** I engineered a set of 200+ engineered features drawn from transaction details, behavioral signals, account signals, etc. Next, I also used the buyer free-text note, which is often noisy, with typos, and contain spam texts. To enable a cleaner embedding representation, I leveraged a Small Language Model to `1.` rewrite each note to keep the facts and `2.` filter buyer note text that do not provide concrete value/
+**Case representation:** I engineered a set of 200+ engineered features drawn from transaction details, behavioral signals, account signals, etc. Next, I also used the buyer free-text note, which is often noisy, with typos, and contain spam texts. To enable a cleaner embedding representation, I leveraged a Small Language Model to `1)` rewrite each note to keep the facts and `2)` filter buyer note text that do not provide concrete value/
 
 **Embedding generation:** Each case ends up with two vectors: a structured vector $q_s$ built from the engineered features, and a text embedding $q_t$ of the buyer note from a text embedding model.
 

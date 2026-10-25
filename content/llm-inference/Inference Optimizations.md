@@ -8,7 +8,7 @@ tags:
 ---
 
 ## Overview
-These are techniques to improve tokens per second (TPS) and time to first token (TTFT) with minimal influence of quality
+Inference optimizations are techniques to improve tokens per second (TPS) and time to first token (TTFT) with minimal influence of quality of the output.
 
 ## Quantization
 
@@ -25,9 +25,9 @@ As attention layers stack, compounding errors may occur, hence its wiser to quan
 
 ## Caching
 
-During prefill, the KV cache is constructed, which is a key and value pair for each token in the sequence. The value of each new token depends on previous token
+During prefill, the KV cache is constructed, which is a key and value pair for each token in the sequence. Its important to note that the value of each new token depends on previous token
 
-Caches live somewhere in the memory hierarchy, and each tier trades speed for capacity. When the cache outgrows fast VRAM (G1), it can be offloaded down to slower but larger tiers (host RAM, SSD).
+The caches live somewhere in the memory hierarchy, and each tier trades speed for capacity. When the cache outgrows fast VRAM (G1), it can be offloaded down to slower but larger tiers (host RAM, SSD).
 
 Places to store KV cache:
 ![[memory-hierarchy.jpeg]]
@@ -35,7 +35,7 @@ Places to store KV cache:
 
 ### KV cache
 
-The KV cache stores past keys and values so prefill does not need to recompute attention over the whole sequence every step.
+The KV cache stores past keys and values so the prefill phase does not need to recompute attention over the whole sequence every step.
 
 - In attention, token `t` attends to all previous tokens via their **keys** and **values**.
 - Without a cache, each decode step would recompute K and V for *every* past token.
