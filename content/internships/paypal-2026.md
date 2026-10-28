@@ -14,7 +14,7 @@ I spent the summer working on large scale context retrieval & browser agents eng
 
 **Concept:** When a new dispute comes in, we want to instantly recommend a resolution right away based on how similar cases were decided in the past. The 2 main types of dispute I dealt with were Item Not Received (INR) & Significantly Not As Described (SNAD).
 
-I helped built a context retrieval system that searches across historical resolved cases to find the closest matches. An adjudication decision is derived from the aggregation of the case's nearest neighbors to produce a resolution recommendation.
+I helped built a context retrieval system that searches across historical resolved cases to find the closest matches. Eventually, an adjudication decision is derived from the aggregation of the case's nearest neighbors to produce a resolution recommendation.
 
 ```mermaid
 flowchart TD
